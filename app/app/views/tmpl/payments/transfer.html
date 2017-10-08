@@ -1,0 +1,183 @@
+<div class="page page-orders" ng-init="GetBalances()">
+
+
+
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{'Menu.TRANSFER' | translate}} <span>//</span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{'Menu.VERYLINX' | translate}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{'Menu.PAYMENTS' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.tables.bootstrap">{{'Menu.TRANSFER' | translate}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+
+
+
+
+
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+            <!-- tile -->
+                <section class="tile" fullscreen="isFullscreen01">
+
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1 class="custom-font"><!--span><strong>Orders</strong> List</span--></h1>
+                        <ul class="controls">
+
+                            <li><a href="javascript:void(0)" ng-click="CreateOrder()" target="_blank" >{{ 'Panel.CREATE_TRANSFER_DOCUMENT' | translate}} </a></li>
+                            <li><a href="/manager/GetUnpaidPublisherBalancesExcell">{{ 'Panel.EXPORT_EXCELL' | translate}} </a></li>
+
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href class="dropdown-toggle" uib-dropdown-toggle>Tools <i class="fa fa-angle-down ml-5"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href>Export to XLS</a>
+                                    </li>
+                                    <li>
+                                        <a href>Export to CSV</a>
+                                    </li>
+                                    <li>
+                                        <a href>Export to XML</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li>
+                                        <a href>Print Invoices</a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href tile-control-toggle>
+                                            <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                            <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-refresh ng-click="ajaxFaker()">
+                                            <fa name="refresh"></fa> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                                            <fa name="expand"></fa> Fullscreen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-lightbox>
+                                            <fa name="magnet"></fa> Open in Lightbox
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+                        <div class="table-responsive-wide">
+                            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped table-hover table-custom" style="min-width: 1000px;">
+                                <thead>
+                                <tr>
+                                    <th><label  class="checkbox checkbox-custom checkbox-custom-sm m-0"><input  ng-change="selectAll()" type="checkbox" ng-model="selectedAll"><i></i></label></th>
+                                    <th style="width:80px;" ng-bind="'Panel.NAME' | translate">სახელი</th>
+                                    <th style="width:120px;" ng-bind="'Panel.MAIL' | translate">ელფოსტა</th>
+                                    <th style="width:120px;" ng-bind="'Panel.IDENTIFICATION' | translate">საიდენტიფიკაციო</th>
+                                    <th style="width:120px;" ng-bind="'Panel.STATUS' | translate">სტატუსი</th>
+                                    <th style="width:180px;" ng-bind="'Panel.BALANCE' | translate">ბალანსი</th>
+                                    <th style="width:200px;" ng-bind="'Panel.TEMPORARY_BALANCE' | translate">დროებითი ბალანსი</th>
+                                    <th style="width:100px;" ng-bind="'Panel.SUM' | translate">ჯამი</th>
+                                    <th  style="width:100px;" ng-bind="'Panel.STATUS' | translate">სტატუსი</th>
+                                    <th style="width:200px;" ng-bind="'Panel.LAST_ACCEPT_DATE' | translate">ბოლო დადასტურების თარიღი</th>
+                                    <th style="width:150px;" ng-bind="'Panel.ACTIONS' | translate">Actions</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th><label   class="checkbox checkbox-custom checkbox-custom-sm m-0"><input  type="checkbox" ng-model="selectedAll"><i></i></label></th>
+                                    <th style="width:80px;" ng-bind="'Panel.NAME' | translate">სახელი</th>
+                                    <th style="width:120px;" ng-bind="'Panel.MAIL' | translate">ელფოსტა</th>
+                                    <th style="width:120px;" ng-bind="'Panel.IDENTIFICATION' | translate">საიდენტიფიკაციო</th>
+                                    <th style="width:120px;" ng-bind="'Panel.STATUS' | translate">სტატუსი</th>
+                                    <th style="width:180px;" ng-bind="'Panel.BALANCE' | translate">ბალანსი</th>
+                                    <th style="width:200px;" ng-bind="'Panel.TEMPORARY_BALANCE' | translate">დროებითი ბალანსი</th>
+                                    <th style="width:100px;" ng-bind="'Panel.SUM' | translate">ჯამი</th>
+                                    <th  style="width:100px;" ng-bind="'Panel.STATUS' | translate">სტატუსი</th>
+                                    <th style="width:200px;" ng-bind="'Panel.LAST_ACCEPT_DATE' | translate">ბოლო დადასტურების თარიღი</th>
+                                    <th style="width:150px;" ng-bind="'Panel.ACTIONS' | translate">Actions</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr ng-repeat="b in balances">
+                                    <td><label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" ng-model="b.selected"><i></i></label></td>
+                                    <td>{{ b.name }}</td>
+                                    <td>{{ b.mail }}</td>
+                                    <td>{{ b.identification }}</td>
+                                    <td>{{ b.user_status }}</td>
+                                    <td>{{ b.balance }}</td>
+                                    <td>{{ b.temp }}</td>
+                                    <td>{{ b.sum }}</td>
+                                    <td><span class="label" ng-class="{'bg-success' : b.status == 'accept','bg-primary' : b.status == 'pending'}">{{ b.status }}</span></td>
+                                    <td>{{ b.accepttime }}</td>
+                                    <td>
+                                        <a ng-click="go(b.id)" class="btn btn-xs btn-default"><i class="fa fa-search"></i> {{ 'Panel.SEE_DETAILS' | translate }}</a>
+                                        <a ng-if="b.status=='pending'"  class="btn btn-xs btn-primary" ng-click="accept_balance(b.userid,$event)"><i class="fa fa-check"></i> 'Panel.ACCEPT' | translate</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /tile body -->
+
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+
+
+
+
+    </div>
+    <!-- /page content -->
+
+
+
+
+</div>

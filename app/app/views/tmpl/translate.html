@@ -1,0 +1,281 @@
+<div class="page page-orders" ng-init="GetFiles()">
+
+
+
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{page.title}} <span>// {{page.subtitle}}</span></h2>
+
+        <div class="page-bar">
+
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">Shop</a>
+                </li>
+                <li>
+                    <a ui-sref="app.shop.orders">{{page.title}}</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- /page header -->
+
+
+
+
+
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+
+
+                <div class="alert alert-danger">
+                    <strong>Note!</strong> This table have only demo purpose. Data are not loaded from database but from dummy json.
+                </div>
+
+
+                <!-- tile -->
+                <section class="tile" fullscreen="isFullscreen01">
+
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1 class="custom-font"> <md-button class="md-raised"  ng-if="menuTab !=''" ng-click="AddNewWord($event,data[menuTab],menuTab,data)">ახალი სიტყვის დამატება</md-button></h1>
+                        <ul class="controls">
+                            <li>
+                                <div class="form-group">
+                                    <select ng-model="filter.language"   style="height: 43px;" ng-change="refreshData()">
+                                        <option value='' > აირჩიეთ ენა</option>
+                                        <option value='ka' >ქართული</option>
+                                        <option value='en' >ინგლისური</option>
+                                        <option value='ru' >რუსული</option>
+                                        <option value='sp' >ესპანური</option>
+
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <select ng-model="filter.site"   style="height: 43px;" ng-change="refreshData()">
+                                        <option value='' >დაჯგუფება</option>
+                                        <option value='home' >მთავარი საიტი</option>
+                                        <option value='manager' >მენეჯერი</option>
+
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <select ng-model="menuTab"   style="height: 43px;"  >
+                                        <option value='' >მენიუ</option>
+                                        <option value="{{$index}}" ng-repeat="t in select track by $index" ng-bind="t"></option>
+
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href class="dropdown-toggle" uib-dropdown-toggle>Tools <i class="fa fa-angle-down ml-5"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li><a href="jsvascript:void(0)" ng-click="UploadTranslateFile()">ატვირთვა</a></li>
+                                    <li><a href="/translate/download/?site={{filter.site}}&language={{filter.language}}" >ჩამოტვირთვა</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="AddMenu($event,select,data)" >მენიუს დამატება</a></li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li>
+                                        <a href="javascript:void(0)"  ng-click="SaveAllChangedData($event)">საიტზე გადატანა</a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href tile-control-toggle>
+                                            <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                            <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-refresh ng-click="ajaxFaker()">
+                                            <fa name="refresh"></fa> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                                            <fa name="expand"></fa> Fullscreen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-lightbox>
+                                            <fa name="magnet"></fa> Open in Lightbox
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+                        <div class="table-responsive-wide">
+                            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped table-hover table-custom" style="min-width: 1000px;">
+                                <thead>
+                                <tr>
+
+                                    <th style="width:80px;">key</th>
+                                    <th style="width:120px;">value</th>
+                                    <th style="width:120px;">action</th>
+
+
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+
+                                    <th>key</th>
+                                    <th>value</th>
+                                    <th></th>
+
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr ng-repeat="(k,v) in data[menuTab]">
+                                    <td>{{ k }}</td>
+                                    <td>{{ v }}</td>
+                                    <td>
+                                        <a href="javascript:void(0)" ng-click="edit($event,k,v,data[menuTab])" class="btn btn-xs btn-primary"><i class="fa fa-check"></i> ჩასწორება</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /tile body -->
+
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+
+
+
+
+    </div>
+    <!-- /page content -->
+
+
+
+
+</div>
+<script id="translate.dialog.html"  type="text/ng-template">
+    <md-dialog aria-label="Mango (Fruit)" style="min-width:500px;">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>translate Box</h2>
+                    <span flex></span>
+
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div class="md-dialog-content">
+                    <md-content class="md-no-momentum">
+                        <md-input-container class="md-icon-float md-block">
+                            <!-- Use floating label instead of placeholder -->
+                            <label>key</label>
+                             <input ng-model="key" type="text" class="black-scheme-color" capitalize>
+                        </md-input-container>
+
+                        <md-input-container class="md-icon-float md-block">
+                            <!-- Use floating label instead of placeholder -->
+                            <label>value</label>
+                            <input ng-model="value" type="text">
+                        </md-input-container>
+
+                    </md-content>
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+
+                <span flex></span>
+                <md-button ng-click="cancel()">
+                    გაუქმება
+                </md-button>
+                <md-button ng-click="save()">
+                    შენახვა
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+</script>
+
+<script id="menu.dialog.html" type="text/ng-template">
+    <md-dialog aria-label="Mango (Fruit)" style="min-width:500px;">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>MENU</h2>
+                    <span flex></span>
+
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div class="md-dialog-content">
+                    <md-content class="md-no-momentum">
+                        <md-input-container class="md-icon-float md-block">
+                            <!-- Use floating label instead of placeholder -->
+                            <label>მენიუს დასახელება</label>
+                            <input ng-model="menu" type="text"  class="black-scheme-color" >
+                            <span class="red" ng-bind="error"></span>
+                        </md-input-container>
+
+
+                    </md-content>
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+
+                <span flex></span>
+                <md-button ng-click="cancel()">
+                    გაუქმება
+                </md-button>
+                <md-button ng-click="save()">
+                    შენახვა
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+</script>
+
+<form class="ng-pristine ng-valid">
+    <input type="file" id="translateFileUpload" onchange="angular.element(this).scope().UploadTranslateFile(this);">
+</form>

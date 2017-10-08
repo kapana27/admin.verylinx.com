@@ -1,0 +1,20 @@
+{
+    "name": "verylinx/panel",
+    "description": "admin panel",
+    "type": "project",
+    "authors": [
+        {
+            "name": "vmanijashvili",
+            "email": "info@ini.ge"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^4.0"
+    },
+	"autoload": {
+		"classmap": [
+			"ppp/src",
+			"engine"
+		]
+	}
+}

@@ -1,0 +1,239 @@
+<div class="page page-tables-bootstrap" ng-init="GetNews()">
+
+
+
+    <div class="pageheader">
+
+        <h2>{{'Menu.NEWS' | translate}} <span>//</span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{'Menu.VERYLINX' | translate}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{'Menu.PANEL' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.tables.bootstrap">{{'Menu.NEWS' | translate}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+
+
+
+
+
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+
+
+                <!-- tile -->
+                <section class="tile" fullscreen="isFullscreen07">
+
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1 class="custom-font"><!--span><strong>Advanced</strong> Table</span--> &nbsp;</h1>
+                        <ul class="controls">
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href tile-control-toggle>
+                                            <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                            <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-refresh ng-click="ajaxFaker()">
+                                            <fa name="refresh"></fa> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-fullscreen ng-click="isFullscreen07 = !isFullscreen07">
+                                            <fa name="expand"></fa> Fullscreen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-lightbox>
+                                            <fa name="magnet"></fa> Open in Lightbox
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile widget -->
+                    <div class="tile-widget">
+
+                        <div class="row">
+
+                            <div class="col-sm-5">
+
+                            </div>
+
+                            <div class="col-sm-3"></div>
+
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="input-sm form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default" type="button">Go!</button>
+                  </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /tile widget -->
+
+                    <!-- tile body -->
+                    <div class="tile-body p-0">
+
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                <tr>
+                                    <th style="width:20px;">
+                                        <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                            <input type="checkbox" ng-model="selectedAll" ng-change="selectAll()"><i></i>
+                                        </label>
+                                    </th>
+                                    <th ng-bind="'Panel.NAME' | translate">სათაური </th>
+                                    <th ng-bind="'Panel.DESCRIPTION' | translate">აღწერა </th>
+                                    <th ng-bind="'Panel.DATE' | translate">თარიღი</th>
+                                    <th ng-bind="'Panel.STATUS' | translate">სტატუსი</th>
+                                    <th ng-bind="'Panel.VIEW' | translate">ნახვა</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="n in news.slice(((bigCurrentPage-1)*itemsPerPage), ((bigCurrentPage)*itemsPerPage))">
+                                    <td><label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" ng-model="user.selected"><i></i></label></td>
+                                    <td>{{n.name}}</td>
+                                    <td>{{n.desc}}</td>
+                                    <td>{{n.date}}</td>
+
+
+                                    <td style="color:{{n.color}}" >{{n.status}}</td>
+
+                                    <td><a href="" ng-click="go($event,n)" class="m-0 icon icon-info icon-ef-6 icon-color" style="width: 32px;height: 32px;"><i class="fa fa-cog" style="line-height: 33px;font-size: 17px;"></i></a></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                    <!-- /tile body -->
+
+                    <!-- tile footer -->
+                    <div class="tile-footer dvd dvd-top">
+                        <div class="row">
+
+                            <div class="col-sm-5 hidden-xs">
+
+                            </div>
+
+                            <div class="col-sm-3 text-center">
+                                <small class="text-muted"></small>
+                            </div>
+
+                            <div class="col-sm-4 text-right">
+                                <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /tile footer -->
+
+                </section>
+                <!-- /tile -->
+
+
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+
+
+
+
+
+
+    </div>
+    <!-- /page content -->
+</div>
+
+<script id="news.tmpl.html" type="text/ng-template">
+    <md-dialog aria-label="Mango (Fruit)">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>{{news.name}}</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div class="md-dialog-content" style="min-width:600px;">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">{{'Rep.NAME' | translate}}:</label>
+                            <input type="test" class="form-control" ng-model="n.name" id="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comment">{{'Rep.REVIEW' | translate}}</label>
+                            <textarea class="form-control" rows="5" id="comment" ng-model="n.desc"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">{{'Rep.REVIEW' | translate}}</label>
+                            <select name="status" class="form-control" id="status" ng-model="n.status">
+                                <option value="accept">{{'Rep.ACCEPT' | translate}}</option>
+                                <option value="pending">{{'Rep.PENDING' | translate}}</option>
+                                <option value="delete">{{'Rep.DELETE' | translate}}</option>
+                            </select>
+                        </div>    
+                        <div class="form-group">
+                            <center><img src="/site/view?src={{n.img}}" style="max-width:200px;" /></center>
+                        </div>
+
+
+                    </form>
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+
+                <md-button ng-click="cancel()">
+                    {{'Rep.CANCEL' | translate}}
+                </md-button>
+                <md-button ng-click="save()">
+                    {{'Rep.SAVE' | translate}}
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+
+</script>

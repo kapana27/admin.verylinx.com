@@ -1,0 +1,120 @@
+<div class="page page-single-order" ng-init="GetDetails()">
+
+    <div class="pageheader">
+
+        <h2>{{ 'Menu.PAYMENTS' | translate }} <span>// </span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> 'Menu.VERYLINX' | translate </a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{'Menu.REPORT' | translate }}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.">{{'Menu.PAYMENTS' | translate }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+
+        <div class="add-nav">
+            <div class="nav-heading">
+                <h3>{{'Menu.ACCOUNT_DETAILS' | translate }} : </h3>
+
+            </div>
+
+                    <!-- row -->
+                    <div class="row">
+                        <!-- col -->
+                        <div class="col-md-12">
+                            <!-- tile -->
+                            <section class="tile tile-simple">
+
+                                <!-- tile body -->
+                                <div class="tile-body p-0">
+
+                                    <div class="table-responsive">
+                                        <div class="table-responsive-wide">
+                                            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped table-hover table-custom" style="min-width: 1000px;">
+                                                <thead>
+                                                <tr>
+
+                                                    <th style="width:80px;" >{{'Panel.PAYMENT_ID' | translate }}</th>
+                                                    <th style="width:120px;">{{'Panel.PAYMENT_DETAIL' | translate }}</th>
+                                                    <th style="width:180px;">{{'Panel.DATE' | translate }}</th>
+                                                    <th style="width:200px;">{{'Panel.AMOUNT' | translate }}</th>
+
+                                                    <th style="width:100px;">{{'Panel.BEFORE' | translate }}</th>
+                                                    <th  style="width:100px;">{{'Panel.AFTER' | translate }}</th>
+
+                                                    <th style="width:200px;">{{'Panel.STATUS' | translate }}</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tfoot>
+                                                <tr>
+
+                                                    <th style="width:80px;" >{{'Panel.PAYMENT_ID' | translate }}</th>
+                                                    <th style="width:120px;">{{'Panel.PAYMENT_DETAIL' | translate }}</th>
+                                                    <th style="width:180px;">{{'Panel.DATE' | translate }}</th>
+                                                    <th style="width:200px;">{{'Panel.AMOUNT' | translate }}</th>
+
+                                                    <th style="width:100px;">{{'Panel.BEFORE' | translate }}</th>
+                                                    <th  style="width:100px;">{{'Panel.AFTER' | translate }}</th>
+
+                                                    <th style="width:200px;">{{'Panel.STATUS' | translate }}</th>
+
+                                                </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                <tr ng-repeat="b in details">
+
+                                                    <td>{{ b.id }}</td>
+                                                    <td><span class="label" ng-class="{'bg-primary' : b.action == '1','bg-danger' : b.action == '2','bg-success' : b.action == '3'}">{{ b.name }}</span></td>
+                                                    <td>{{ b.start_date }}</td>
+                                                    <td>{{ b.amount }}</td>
+                                                    <td>{{ b.before }}</td>
+                                                    <td>{{ b.after }}</td>
+
+                                                    <td><span class="label" ng-class="{'bg-success' : b.status == 'accept','bg-danger' : b.status == 'cancel'}">{{b.status }}</span></td>
+
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /tile body -->
+
+                            </section>
+                            <!-- /tile -->
+
+
+                        </div>
+                        <!-- /col -->
+                    </div>
+                    <!-- /row -->
+
+
+
+        </div>
+
+
+
+    </div>
+    <!-- /page content -->
+
+
+
+
+</div>

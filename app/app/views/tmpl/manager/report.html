@@ -1,0 +1,313 @@
+<div class="page page-tables-bootstrap">
+
+
+
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{page.title}} <span>// {{page.subtitle}}</span></h2>
+
+        <div class="page-bar">
+
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">Tables</a>
+                </li>
+                <li>
+                    <a ui-sref="app.tables.bootstrap">{{page.title}}</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- /page header -->
+
+
+
+
+
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+
+        <!-- row -->
+        <div class="row">
+
+
+            <!-- col -->
+            <div class="col-md-12 ">
+
+
+
+                <!-- tile -->
+                <section  class="tile p-30" fullscreen="isFullscreen01">
+
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1 class="custom-font"><strong>Basic</strong> Example</h1>
+                        <ul class="controls">
+                            <li >
+                                <a href="javascript:;" daterangepicker="rangeOptions" date-begin="startDate" date-end="endDate">
+                                    <span>{{startDate}} - {{endDate}}</span>&nbsp;&nbsp;<i class="fa fa-angle-down"></i>
+                                </a>
+                            </li>
+                            <li style="width:50px">
+                                <center>
+                                    <div class="form-group mt-6">
+                                        <a href="" ng-click="GetReport()" class="icon icon-info icon-ef-6 icon-color m-0" style="width: 32px;height: 32px;">
+                                            <i class="px-22 fa fa-refresh" style="line-height:32px"></i>
+                                        </a>
+                                    </div>
+                                </center>
+                              </li>
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href tile-control-toggle>
+                                            <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                            <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-refresh ng-click="ajaxFaker()">
+                                            <fa name="refresh"></fa> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                                            <fa name="expand"></fa> Fullscreen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-lightbox>
+                                            <fa name="magnet"></fa> Open in Lightbox
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                     <!-- tile body -->
+                    <div class="tile-body p-0">
+                       <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%">კლიკები</td><td ng-bind="data.click==null ? 0 : data.click"></td>
+                                </tr>
+                                <tr>
+                                    <td>უნიკალური კლიკები</td>  <td ng-bind="data.uniq==null?0:data.uniq"></td>
+                                </tr>
+                                <tr>
+                                    <td>განხორციელებული ჯამური CPL</td> <td ng-bind="data.count_cpl==null?0:data.count_cpl"></td>
+                                </tr>
+                                <tr>
+                                    <td>კომპანიის შემოსავალი CPL</td> <td ng-bind="data.company_cpl_price==null?0:data.company_cpl_price"></td>
+                                </tr>
+                                <tr>
+                                    <td>ფაბლიშერის შემოსავალი CPL</td> <td ng-bind="data.user_cpl_price==null?0:data.user_cpl_price"></td>
+                                </tr>
+                                <tr>
+                                    <td>სულ თანხა CPL</td> <td ng-bind="data.full_cpl_price==null?0:data.full_cpl_price"></td>
+                                </tr>
+                                <tr>
+                                    <td>განხორციელებული ჯამური CPA</td> <td ng-bind="data.count_cpa==null?0:data.count_cpa"></td>
+                                </tr>
+                                 <tr>
+                                     <td>კომპანიის შემოსავალი CPA</td> <td ng-bind="data.company_cpa_price==null?0:data.company_cpa_price"></td>
+                                 </tr>
+                                 <tr>
+                                     <td>ფაბლიშერის შემოსავალი CPA</td> <td ng-bind="data.user_cpa_price==null?0:data.user_cpa_price"></td>
+                                 </tr>
+                                  <tr>
+                                      <td>სულ თანხა CPA</td> <td ng-bind="data.full_cpa_price==null?0:data.full_cpa_price"></td>
+                                  </tr>
+                                 </tr>
+                            </tbody>
+                        </table>
+                     </div>
+                    <h3>გამომუშავებული თანხა</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="tile-body p-0">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3">გამომქვეყნებლის გამომუშავებული თანხა</th>
+                                       </tr>
+                                        <tr>
+                                            <th>მინიმალური</th>
+                                            <th>საშუალო</th>
+                                            <th>მაქსიმალური</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td ng-bind="publisher_stat.min==null? 0:publisher_stat.min"></td>
+                                        <td ng-bind="publisher_stat.avg==null? 0:publisher_stat.avg"></td>
+                                        <td ng-bind="publisher_stat.max==null? 0:publisher_stat.max"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="tile-body p-0">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="3">განმცხადებლის გადასახდელი თანხა</th>
+                                    </tr>
+                                    <tr>
+                                        <th>მინიმალური</th>
+                                        <th>საშუალო</th>
+                                        <th>მაქსიმალური</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td ng-bind="advertiser_stat.min==null? 0:advertiser_stat.min"></td>
+                                        <td ng-bind="advertiser_stat.avg==null? 0:advertiser_stat.avg"></td>
+                                        <td ng-bind="advertiser_stat.max==null? 0:advertiser_stat.max"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /tile body -->
+                    <h3>განხორციელებული კლიკები</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="tile-body p-0">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="3">გამომქვეყნებლის კლიკების რაოდენობა</th>
+                                    </tr>
+                                    <tr>
+                                        <th>მინიმალური</th>
+                                        <th>საშუალო</th>
+                                        <th>მაქსიმალური</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td ng-bind="click_stat_publisher.min==null? 0:click_stat_publisher.min"></td>
+                                        <td ng-bind="click_stat_publisher.avg==null? 0:click_stat_publisher.avg"></td>
+                                        <td ng-bind="click_stat_publisher.max==null? 0:click_stat_publisher.max"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="tile-body p-0">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="3">განმცხადებლის კლიკების რაოდენობა</th>
+                                    </tr>
+                                    <tr>
+                                        <th>მინიმალური</th>
+                                        <th>საშუალო</th>
+                                        <th>მაქსიმალური</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td ng-bind="click_stat_advertiser.min==null? 0:click_stat_advertiser.min"></td>
+                                        <td ng-bind="click_stat_advertiser.avg==null? 0:click_stat_advertiser.avg"></td>
+                                        <td ng-bind="click_stat_advertiser.max==null? 0:click_stat_advertiser.max"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /tile body -->
+                    <h3>გამომუშავებული თანხა</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="tile-body p-0" style="max-height: 300px;overflow-y:scroll">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="3">გამომქვეყნებლის გამომუშავებული თანხა</th>
+                                    </tr>
+                                    <tr>
+                                        <th>დასახელება</th>
+                                        <th>თანხა</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody style="max-height:300px; overflow-y:scroll">
+                                        <tr ng-repeat="p in pub_amount_list">
+                                            <td ng-bind="p.name"></td>
+                                            <td ng-bind="p.sum"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="tile-body p-0" style="max-height: 300px;overflow-y:scroll">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="3">გამომქვეყნებლის გამომუშავებული თანხა</th>
+                                    </tr>
+                                    <tr>
+                                        <th>დასახელება</th>
+                                        <th>თანხა</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody style="max-height:300px; overflow-y:scroll">
+                                    <tr ng-repeat="p in pub_click_list">
+                                        <td ng-bind="p.name == null? 'undefined': p.name"></td>
+                                        <td ng-bind="p.sum"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /tile body -->
+                    <h3>საუკეთესო ფაბლიშერი</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>საუკეთესო ფაბლიშერი click/CPL- რაოდენობასთან </p>
+                            <div>
+                                <strong><span ng-bind="top_cpl.name"></span></strong>  |
+                                <strong><span ng-bind="top_cpl.click_cpl==null ? 0 : top_cpl.click_cpl"></span> </strong>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p>საუკეთესო ფაბლიშერი click/CPA- რაოდენობასთან </p>
+                            <div>
+                                <strong><span ng-bind="top_cpa.name"></span></strong> |
+                                <strong><span ng-bind="top_cpa.click_cpa==null ? 0 : top_cpl.click_cpa"></span></strong>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col -->
+
+    </div>
+    <!-- /page content -->
+</div>

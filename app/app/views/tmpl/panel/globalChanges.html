@@ -1,0 +1,240 @@
+<div class="page page-tables-bootstrap" ng-init="getMycategories()">
+
+
+
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{'Menu.GLOBALCHANGE' | translate}} <span>//</span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{'Menu.VERYLINX' | translate}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{'Menu.PANEL' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.tables.bootstrap">{{'Menu.GLOBALCHANGE' | translate}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+
+
+
+
+
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+
+
+                <!-- tile -->
+                <section class="tile" fullscreen="isFullscreen07">
+
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1 class="custom-font"><!--span><strong>Advanced</strong> Table</span--></h1>
+                        <ul class="controls">
+                            <li> <md-button class="md-raised" ng-click="changes()">{{'Panel.CHANGES' | translate}}</md-button></li>
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href tile-control-toggle>
+                                            <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                            <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-refresh ng-click="ajaxFaker()">
+                                            <fa name="refresh"></fa> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-fullscreen ng-click="isFullscreen07 = !isFullscreen07">
+                                            <fa name="expand"></fa> Fullscreen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-lightbox>
+                                            <fa name="magnet"></fa> Open in Lightbox
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile widget -->
+                    <div class="tile-widget">
+
+                        <div class="row">
+
+                            <div class="col-sm-5">
+
+                            </div>
+
+                            <div class="col-sm-3"></div>
+
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="input-sm form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default" type="button">Go!</button>
+                  </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /tile widget -->
+
+                    <!-- tile body -->
+                    <div class="tile-body p-0">
+
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                <tr>
+                                    <th style="width:20px;">
+                                        <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                            <input type="checkbox" ng-model="selectedAll" ng-change="selectAll()"><i></i>
+                                        </label>
+                                    </th>
+                                    <th  ng-bind="'Panel.NAME' | translate">კატეგორია </th>
+                                    <th  ng-bind="'Panel.NAME' | translate">სუბ ID </th>
+                                    <th  ng-bind="'Panel.NAME' | translate">cpa </th>
+                                    <th  ng-bind="'Panel.NAME' | translate">ტიპი </th>
+                                    <th  ng-bind="'Panel.NAME' | translate">cpl </th>
+                                    <th  ng-bind="'Panel.NAME' | translate">ტიპი </th>
+                                    <th  ng-bind="'Panel.COMPANY' | translate">კომპანია </th>
+                                    <th  ng-bind="'Panel.DATE' | translate">თარიღი </th>
+                                    <th  ng-bind="'Panel.USER' | translate">მომხმარებელი</th>
+                                    <th  ng-bind="'Panel.MAIL' | translate">ელფოსტა</th>
+                                    <th style="width:200px;"  ng-bind="'Panel.WEBSITE' | translate">ვებგვერდი</th>
+
+                                    <th  ng-bind="'Panel.STATUS' | translate">სტატუსი</th>
+                                    <th  ng-bind="'Panel.GLOBALCHANGE' | translate">გლობალური ცვლილებები</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="user in users.slice(((bigCurrentPage-1)*itemsPerPage), ((bigCurrentPage)*itemsPerPage))">
+                                    <td><label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" ng-model="user.selected"><i></i></label></td>
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.mycatid}}</td>
+                                    <td>{{user.cpa}}</td>
+                                    <td>{{user.cpatype}}</td>
+                                    <td>{{user.cpl}}</td>
+                                    <td>{{user.cpltype}}</td>
+                                    <td>{{user.companyName}}</td>
+                                    <td>{{user.date}}</td>
+                                    <td>{{user.username}}</td>
+                                    <td><a href="mailto:{{user.mail}}" target="_top">{{user.mail}}</a></td>
+                                    <td><a href="{{user.companyUrl}}" target='_blank'>{{user.companyUrl}} </a></td>
+
+                                    <td style="color:{{user.color}}" >{{user.status}}</td>
+                                    <td style="color:{{user.global_change? 'green':'red'}}">{{user.global_change}}</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                    <!-- /tile body -->
+
+                    <!-- tile footer -->
+                    <div class="tile-footer dvd dvd-top">
+                        <div class="row">
+
+                            <div class="col-sm-5 hidden-xs">
+
+                            </div>
+
+                            <div class="col-sm-3 text-center">
+                                <small class="text-muted"></small>
+                            </div>
+
+                            <div class="col-sm-4 text-right">
+                                <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /tile footer -->
+
+                </section>
+                <!-- /tile -->
+
+
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+
+
+
+
+
+
+    </div>
+    <!-- /page content -->
+</div>
+
+
+<script type="text/ng-template" id="globalchange.tmpl.html">
+    <md-dialog style="width:80%; max-width:800px;">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>{{'Rep.GLOBAL_CHANGES' | translate}}</h2>
+                    <span flex></span>
+                </div>
+            </md-toolbar>
+            <md-dialog-content class="p-30">
+                <form>
+                    <div class="form-group">
+                        <label for="number">{{'Rep.VERYLINX_COMMISSION' | translate}}: <sup>*{{'Rep.ENTER_PERCENT' | translate}} </sup></label>
+                        <input type="number" class="form-control" id="number" ng-model="form.percent">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">{{'Rep.CODE' | translate}}:</label>
+                        <input type="password" class="form-control" id="pwd" ng-model="form.code">
+                    </div>
+                    <span class="red" ng-bind="error"> </span>
+                </form>
+
+            </md-dialog-content>
+            <md-dialog-actions >
+
+                <md-button ng-click="cancel()">
+                    {{'Rep.CANCEL' | translate}}
+                </md-button>
+                <md-button ng-click="save()">
+                    {{'Rep.SAVE' | translate}}
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+
+</script>

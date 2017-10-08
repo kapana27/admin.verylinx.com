@@ -1,0 +1,22 @@
+table.program-features{
+    width:100%;
+}
+table.program-features td {
+    padding:10px;
+}
+.program-left-border{
+    border-left:1px solid hsl(0, 0%, 93%);
+    border-right:1px solid hsl(0, 0%, 93%);
+    text-align: center;
+}
+.program-left-border tr{
+    border-bottom:1px solid hsl(0, 0%, 93%);
+}
+table tr.advertiser-companies td {
+    height: 50px;
+    line-height: 50px;
+}
+.tile .tile-header .btn.btnpicker{
+	
+	padding: 6px 12px !important;
+} 

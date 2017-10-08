@@ -1,0 +1,340 @@
+<div class="row">
+
+
+</div>
+
+
+<div ng-cloak>
+    <md-content>
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="პროფილი">
+
+                <md-content layout-padding ng-if="userDetails.group_id=='5'">
+                    <div>
+                        <form name="userForm">
+
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>სახელი</label>
+                                    <input ng-model="userDetails.fname" placeholder="სახელი">
+                                </md-input-container>
+
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>გვარი</label>
+                                    <input ng-model="userDetails.lname" placeholder="გვარი">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>ელფოსტა</label>
+                                    <input ng-model="userDetails.mail" placeholder="ელფოსტა">
+                                </md-input-container>
+
+                                <md-input-container  class="md-block" flex-gt-sm>
+                                    <label>ვებ გვერდი</label>
+                                    <input ng-model="userDetails.website" placeholder="ვებ გვერდის ბმული">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>ტელ.ნომერი</label>
+                                    <input ng-model="userDetails.phone">
+                                </md-input-container>
+
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>სეგმენტი</label>
+                                    <md-select ng-model="userDetails.segment">
+                                        <md-option value="" ng-bind-html="'Form.CHOOSE_SEGMENT' | translate"></md-option>
+                                        <md-option value="1" ng-bind-html="'Form.SEGMENT1' | translate"></md-option>
+                                        <md-option value="2" ng-bind-html="'Form.SEGMENT2' | translate"></md-option>
+                                        <md-option value="3" ng-bind-html="'Form.SEGMENT3' | translate" ></md-option>
+                                        <md-option value="4" ng-bind-html="'Form.SEGMENT4' | translate" ></md-option>
+                                        <md-option value="5" ng-bind-html="'Form.SEGMENT5' | translate" ></md-option>
+                                        <md-option value="6" ng-bind-html="'Form.SEGMENT6' | translate"></md-option>
+                                        <md-option value="7" ng-bind-html="'Form.SEGMENT7' | translate" ></md-option>
+                                        <md-option value="8" ng-bind-html="'Form.SEGMENT8' | translate" ></md-option>
+                                        <md-option value="100" ng-bind-html="'Form.SEGMENT9' | translate" ></md-option>
+                                    </md-select>
+                                </md-input-container>
+
+
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <md-checkbox ng-model="userDetails.agree_terms" aria-label="Checkbox 1">
+                                        <span class="px-12" ng-bind-html="'Form.AGREE_TERMS'|translate"> </span>
+                                    </md-checkbox>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <md-checkbox ng-model="userDetails.option1">
+                                        <span class="px-12" ng-bind-html="'Form.I_HAVE_MY_OWN_AFFILIATE_PROGRAM' | translate"></span>
+                                    </md-checkbox>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <md-checkbox ng-model="userDetails.option2">
+                                        <span class="px-12" ng-bind-html="'Form.I_WORK_WITH_OTHER_CPA_NETWORKS' | translate"> </span>
+                                    </md-checkbox>
+                                </md-input-container>
+
+                            </div>
+                        </form>
+                    </div>
+                </md-content>
+                <md-content layout-padding ng-if="userDetails.group_id=='6'">
+                    <div>
+                        <form name="userForm">
+
+
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>სახელი</label>
+                                    <input ng-model="userDetails.fname" placeholder="სახელი">
+                                </md-input-container>
+
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>გვარი</label>
+                                    <input ng-model="userDetails.lname" placeholder="გვარი">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>სტატუსი</label>
+                                    <md-select ng-model="userDetails.p_status">
+                                        <md-option value="" ng-bind-html="'Form.YOUR_STATUS'|translate"></md-option>
+                                        <md-option value="1" ng-bind-html="'Form.INDMETSARME'|translate"></md-option>
+                                        <md-option value="2" ng-bind-html="'Form.FIZPIRI'|translate"></md-option>
+                                        <md-option value="3" ng-bind-html="'Form.SHPS'|translate"></md-option>
+
+                                    </md-select>
+                                </md-input-container>
+
+                                <md-input-container  class="md-block" flex-gt-sm>
+                                    <label>საიდენტიფიკაციო</label>
+                                    <input ng-model="userDetails.identification" placeholder="საიდენტიფიკაციო">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>ელფოსტა</label>
+                                    <input ng-model="userDetails.mail" placeholder="ელფოსტა">
+                                </md-input-container>
+
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>ქვეყანა</label>
+                                    <md-select ng-model="userDetails.p_country">
+                                        <md-option value="" ng-bind-html="'Form.YOUR_COUNTRY'|translate"></md-option>
+                                        <md-option value="1" ng-bind-html="'Form.COUNTRY1'|translate"></md-option>
+                                        <md-option value="2" ng-bind-html="'Form.COUNTRY2'|translate"></md-option>
+                                        <md-option value="3" ng-bind-html="'Form.COUNTRY3'|translate"></md-option>
+                                        <md-option value="4" ng-bind-html="'Form.COUNTRY4'|translate"></md-option>
+                                        <md-option value="5" ng-bind-html="'Form.COUNTRY5'|translate"></md-option>
+
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>მომხმარებელი</label>
+                                    <input ng-model="userDetails.username">
+                                </md-input-container>
+
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>სარეკლამო სივრცის ტიპი</label>
+                                    <md-select ng-model="userDetails.space_type">
+                                        <md-option  value="" ng-bind=" 'Form.YOUR_AD_SPACE_TYPE'| translate"></md-option>
+                                        <md-option value="1" ng-bind=" 'Form.SPACE1'| translate"></md-option>
+                                        <md-option value="2" ng-bind=" 'Form.SPACE2'| translate"></md-option>
+                                        <md-option value="3" ng-bind=" 'Form.SPACE3'| translate"></md-option>
+                                        <md-option value="4" ng-bind=" 'Form.SPACE4'| translate"></md-option>
+                                        <md-option value="5" ng-bind=" 'Form.SPACE5'| translate"></md-option>
+
+                                    </md-select>
+                                </md-input-container>
+                           </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>ვებ გვერდის მისამართი</label>
+                                    <input ng-model="userDetails.sp_address" placeholder="ვებ გვერდის მისამართი">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>სარეკლამო სივრცის სახელი</label>
+                                    <input ng-model="userDetails.sp_name" placeholder="სარეკლამო სივრცის სახელი">
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>გაყიდვების რეგიონი</label>
+                                    <md-select ng-model="userDetails.s_region">
+                                        <md-option value="" ng-bind=" 'Form.SALES_REGION'| translate"></md-option>
+                                        <md-option value="1" ng-bind-html="'Form.COUNTRY1'|translate"></md-option>
+                                        <md-option value="2" ng-bind-html="'Form.COUNTRY2'|translate"></md-option>
+                                        <md-option value="3" ng-bind-html="'Form.COUNTRY3'|translate"></md-option>
+                                        <md-option value="4" ng-bind-html="'Form.COUNTRY4'|translate"></md-option>
+                                        <md-option value="5" ng-bind-html="'Form.COUNTRY5'|translate"></md-option>
+
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>კატეგორია</label>
+                                    <md-select ng-model="userDetails.p_category">
+
+                                        <md-option value="" ng-bind=" 'Form.CATEGORY'| translate"></md-option>
+                                        <md-optgroup label="{{'Form.HEAD1'| translate }}">
+                                            <md-option value="2" ng-bind="'Form.SUB1' | translate"></md-option>
+                                            <md-option value="3" ng-bind="'Form.SUB2' | translate"></md-option>
+                                            <md-option value="4" ng-bind="'Form.SUB3' | translate"></md-option>
+                                            <md-option value="5" ng-bind="'Form.SUB4' | translate"></md-option>
+                                            <md-option value="6" ng-bind="'Form.SUB5' | translate"></md-option>
+                                            <md-option value="7" ng-bind="'Form.SUB6' | translate"></md-option>
+                                            <md-option value="8" ng-bind="'Form.SUB7' | translate"></md-option>
+                                            <md-option value="9" ng-bind="'Form.SUB8' | translate"></md-option>
+                                            <md-option value="10" ng-bind="'Form.SUB9' | translate"></md-option>
+                                            <md-option value="11" ng-bind="'Form.SUB10' | translate"></md-option>
+                                            <md-option value="12" ng-bind="'Form.SUB11' | translate"></md-option>
+                                            <md-option value="13" ng-bind="'Form.SUB12' | translate"></md-option>
+                                            <md-option value="14" ng-bind="'Form.SUB13' | translate"></md-option>
+                                            <md-option value="15" ng-bind="'Form.SUB14' | translate"></md-option>
+                                            <md-option value="16" ng-bind="'Form.SUB15' | translate"></md-option>
+                                            <md-option value="17" ng-bind="'Form.SUB16' | translate"></md-option>
+
+                                        </md-optgroup>
+                                        <md-optgroup label="{{'Form.HEAD2'| translate }}">
+                                            <md-option value="19" ng-bind="'Form.SUB21' | translate"></md-option>
+                                            <md-option value="20" ng-bind="'Form.SUB22' | translate"></md-option>
+                                            <md-option value="21" ng-bind="'Form.SUB23' | translate"></md-option>
+                                            <md-option value="22" ng-bind="'Form.SUB24' | translate"></md-option>
+                                            <md-option value="23" ng-bind="'Form.SUB25' | translate"></md-option>
+                                            <md-option value="24" ng-bind="'Form.SUB26' | translate"></md-option>
+                                            <md-option value="25" ng-bind="'Form.SUB27' | translate"></md-option>
+
+                                        </md-optgroup>
+                                        <md-optgroup label="{{'Form.HEAD3'| translate }}">
+                                            <md-option value="27" ng-bind="'Form.SUB29' | translate"></md-option>
+                                            <md-option value="28" ng-bind="'Form.SUB30' | translate"></md-option>
+                                            <md-option value="29" ng-bind="'Form.SUB31' | translate"></md-option>
+                                            <md-option value="30" ng-bind="'Form.SUB32' | translate"></md-option>
+
+                                        </md-optgroup>
+                                        <md-optgroup label="{{'Form.HEAD4'| translate }}">
+                                            <md-option value="32" ng-bind="'Form.SUB39' | translate"></md-option>
+                                            <md-option value="33" ng-bind="'Form.SUB40' | translate"></md-option>
+                                            <md-option value="34" ng-bind="'Form.SUB41' | translate"></md-option>
+                                            <md-option value="35" ng-bind="'Form.SUB42' | translate"></md-option>
+                                            <md-option value="36" ng-bind="'Form.SUB43' | translate"></md-option>
+                                            <md-option value="37" ng-bind="'Form.SUB44' | translate"></md-option>
+
+                                        </md-optgroup>
+                                        <md-optgroup label="{{'Form.HEAD5'| translate }}">
+                                            <md-option value="39" ng-bind="'Form.SUB47' | translate"></md-option>
+                                            <md-option value="40" ng-bind="'Form.SUB48' | translate"></md-option>
+
+                                        </md-optgroup>
+                                        <md-optgroup label="{{'Form.HEAD6'| translate }}">
+                                            <md-option value="42" ng-bind="'Form.SUB49' | translate"></md-option>
+                                            <md-option value="43" ng-bind="'Form.SUB50' | translate"></md-option>
+                                            <md-option value="44" ng-bind="'Form.SUB51' | translate"></md-option>
+                                            <md-option value="45" ng-bind="'Form.SUB52' | translate"></md-option>
+                                        </md-optgroup>
+                                        <md-option value="46" ng-bind="'Form.SUB53' | translate"></md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+
+                            <md-input-container class="md-block">
+                                <label>როგორ გაავრცელებთ საპარტნიორო პროგრამის მასალებს?</label>
+                                <textarea ng-model="userDetails.promote" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                            </md-input-container>
+                        </form>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab label="კომპანიები">
+                <md-content class="md-padding p-30">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-show="data.length==0" class="mt-30 text-strong">პროგრამები არ მოიძებნა </div>
+                            <div ng-repeat="com in data.slice(((bigCurrentPage-1)*itemsPerPage), ((bigCurrentPage)*itemsPerPage))">
+                                <div class="row" >
+                                    <div class="col-xs-5">
+                                        <div class="home-box p15 radius5">
+                                            <div class="row mb-0">
+                                                <div class="col-xs-5 pr-0 xs-center" >
+                                                    <img src="/b/getImage?logo={{com.logo}}"  class="mt-18" style="width:100%" />
+
+                                                </div>
+                                                <div class="col-xs-7 pl-10">
+                                                    <h3 class="strong mb-0 xs-center">{{com.companyName}}</h3>
+                                                    <!--p class="px-15 gray-info lh-1 strong mb-5 xs-center">Horns for Dogs (food supplement for dogs).</p-->
+                                                    <p class="px-15  lh-1 strong xs-center">Publish date. {{com.publish}}</p>
+                                                </div>
+
+                                            </div>
+                                            <hr class="mt-0">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <h3 class="gray-info px-12 uppercase strong mb-5">Rating </h3>
+                                                    <p class="px-23 mb-5">5.4</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <h3 class="gray-info px-12 uppercase strong mb-5">eCPC </h3>
+                                                    <p class="px-23 mb-5">0.3%</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <h3 class="gray-info px-12 uppercase strong mb-5">CR </h3>
+                                                    <p class="px-23 mb-5">0.99%</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <h3 class="gray-info px-12 uppercase strong mb-5">Approval </h3>
+                                                    <p class="px-23 mb-5">98%</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xs-5 program-left-border">
+
+                                        <table  class="program-features">
+                                            <tr>
+                                                <td> Launch Date: </td>
+                                                <td>13.03.2015 </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Product feed: </td>
+                                                <td> Yes</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Retargeting: </td>
+                                                <td>No </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cookie lifetime: </td>
+                                                <td>30 days </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Rates: </td>
+                                                <td>New clients </td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                    <div class="col-xs-2 lh16">
+                                        <center><i  ng-click="go(com.id)" class="fa fa-angle-right px-50 gray-info lh-4" aria-hidden="true" ></i></center>
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                            <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+
+
+                        </div>
+
+                    </div>
+
+                </md-content>
+            </md-tab>
+
+        </md-tabs>
+    </md-content>
+</div>

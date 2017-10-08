@@ -1,0 +1,110 @@
+<div class="page page-timeline">
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{ 'Menu.UPLOAD' | translate}} <span>// {{page.subtitle | translate}}</span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{ 'Menu.VERYLINX' | translate}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{ 'Menu.PROGRAMS' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.">{{ 'Menu.UPLOAD' | translate}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+
+    <!-- page content -->
+    <div class="pagecontent">
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+
+
+            <div class="col-md-1" style="width:50px;"> </div>
+            <div class="col-md-11 mt-30 bg-white">
+                <div class="row  mt-30">
+
+                    <form name="" layout="column"  class="form-horizontal">
+                        <div class="form-group">
+                            <label  class="control-label col-sm-2"  for="sel1"  >{{ 'Rep.CHOOSE_COMPANY' | translate}}</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="sel1" ng-model="company" ng-class="(error.company.color == 'red')? 'b-red':'' " ng-change="com_id()">
+                                    <option value="" selected>{{ 'Rep.CHOOSE_COMPANY' | translate}}</option>
+                                    <option value="{{c.id}}" ng-repeat="c in companies">{{c.companyName}}</option>
+
+                                </select>
+                                <span class="px-12 left red" ng-bind="error.company.error"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label col-sm-2"  for="sel1"  >{{ 'Rep.CHOOSE_CATEGORY' | translate}}</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="sel1" ng-model="category" ng-class="(error.category.color == 'red')? 'b-red':'' ">
+                                    <option value="" selected>{{ 'Rep.CHOOSE_CATEGORY' | translate}}</option>
+                                    <option value="{{c.catid}}" ng-repeat="c in categories ">{{c.catname}}</option>
+
+                                </select>
+                                <span class="px-12 left red" ng-bind="error.category.error"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="Name">{{ 'Rep.BANER_NAME' | translate}}</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="name" class="form-control"  placeholder="{{ 'Rep.BANER_NAME' | translate}}" ng-class="(error.name.color=='red')? 'b-red':'' " ng-model="error.fname">
+                                <span class="px-12 left red" ng-bind="error.name.error"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="Name">{{ 'Rep.REDIRECT_URL' | translate}}</label>
+                            <div class="col-sm-10">
+                                <input type="text"  class="form-control"  placeholder="{{ 'Rep.REDIRECT_URL' | translate}}" ng-class="(error.redirecUri.color=='red')? 'b-red':'' " ng-model="redirecUri">
+                                <span class="px-12 left red" ng-bind="error.redirecUri.error"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="Name">{{ 'Rep.UPLOAD_BANNER' | translate}}</label>
+                            <div class="col-sm-10">
+                                <lf-ng-md-file-input ng-class="(error.files.color=='red')? 'b-red':'' " lf-files="file"  lf-required lf-maxcount="1"  lf-filesize="150MB" lf-totalsize="150MB" lf-mimetype="image/jpeg,image/png"  drag preview progress  lf-drag-and-drop-label="ჩააგდეთ ფაილი" lf-browse-label="მონიშნეთ ფაილი..." lf-remove-label="ფაილის წაშლა"> </lf-ng-md-file-input>
+
+                                <span class="px-12 left red" ng-bind="error.files.error"></span>
+                            </div>
+                            <div class="form-group ">
+                                <label  class="control-label col-sm-2"  for="sel1"></label>
+                                <div class="col-sm-10 m-t-20">
+                                    <button type="button" class="btn btn-primary px-25 radius-0  weight-400 " ng-click="upload()" >{{ 'Rep.ADD_BANNER' | translate}}</button> </br>
+                                    <span class="px-15 left green m-t-20" ng-bind="success"></span>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /page content -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

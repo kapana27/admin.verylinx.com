@@ -1,0 +1,177 @@
+<!-- right side header -->
+<div class="p-15 bg-white b-b" ng-init="GetCompanies()">
+
+    <div class="btn-group pull-right">
+        <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+    </div>
+    <div class="btn-toolbar">
+        <!--div class="btn-group mr-10">
+            <label class="checkbox checkbox-custom m-0 mt-5"><input type="checkbox" ng-model="selectedAll" ng-click="selectAll()"><i></i> Select All</label>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm br-2"><i class="fa fa-refresh"></i></button>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm br-2">More <span class="caret"></span></button>
+        </div-->
+    </div>
+
+</div>
+<!-- /right side header -->
+
+
+
+
+
+
+
+<!-- right side body -->
+<div>
+
+    <!-- mails -->
+    <ul class="list-group no-radius no-border" id="mails-list">
+        <li ng-repeat="user in users.slice(((bigCurrentPage-1)*itemsPerPage), ((bigCurrentPage)*itemsPerPage))" class="list-group-item b-{{u.label.color}}">
+
+            <div class="media">
+                <div class="pull-left" style="margin-top: 15px;">
+                    <div class="controls">
+                        <a href="javascript:;" ng-click="u.starred = !u.starred" class="favourite text-orange"><i class="fa fa-star-o" ng-show="!u.starred"></i><i class="fa fa-star" ng-show="u.starred"></i></a>
+                        <label class="checkbox checkbox-custom checkbox-custom-sm m-0 mail-select"><input type="checkbox" ng-model="u.selected"><i></i></label>
+                    </div>
+                    <div class="thumb thumb-sm" >
+                        <img ng-src="{{u.avatar}}" class="img-circle" ng-show="u.avatar">
+                        <div  style="background:hsl(270, 16%, 29%)" class="img-circle bg-{{u.label.color}}" ng-show="!u.avatar">{{user.companyName | limitTo:1}}</div>
+                    </div>
+                </div>
+                <div class="media-body">
+                    <div class="media-heading m-0" ng-click="editcompany($event,user)">
+                         <span>
+                              <div class="table-responsive">
+                                  <table class="table mb-0">
+
+                                        <tr>
+                                            <td rowspan="2"><img src="/b/getImage?logo={{user.logo}}" style="max-width: 200px" /></td>
+                                            <td ng-bind="'Rep.COMPANY' | translate">კომპანია </td>
+                                            <td ng-bind="'Rep.DATE' | translate">თარიღი </td>
+                                            <td ng-bind="'Rep.USER' | translate">მომხმარებელი</td>
+                                            <td ng-bind="'Rep.MAIL' | translate">ელფოსტა</td>
+                                            <td ng-bind="'Rep.WEBSITE' | translate" >ვებგვერდი</td>
+                                            <td ng-bind="'Rep.IDENTIFICATION' | translate">საიდენტიფიკაციო</td>
+                                            <td ng-bind="'Rep.STATUS' | translate">სტატუსი</td>
+
+                                      </tr>
+                                      <tr >
+                                       <td>{{user.companyName}}</td>
+                                        <td>{{user.publish}}</td>
+                                        <td>{{user.username}}</td>
+                                        <td><a href="mailto:{{user.mail}}" target="_top">{{user.mail}}</a></td>
+                                        <td><a href="{{user.companyUrl}}" target='_blank'>{{user.companyUrl}} </a></td>
+                                        <td>{{user.Identification}}</td>
+                                        <td style="color:{{user.color}}" >{{user.status}}</td>
+
+
+                                      </tr>
+
+                                  </table>
+                                </div>
+                            </span>
+                        <span class="pull-right text-sm text-muted">
+
+
+                          <i class="fa fa-paperclip ml-5" ng-show="u.attach"></i>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+        </li>
+        <div class="pull-right">
+            <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+        </div>
+    </ul>
+    <!-- / mails -->
+
+</div>
+<!-- /right side body -->
+
+<style >
+    table.users-table{
+        width:100%;
+    }
+
+</style>
+
+<script type="text/ng-template" id="company.tmpl.html">
+    <md-dialog >
+        <form ng-cloak>
+
+            <md-dialog-content class="p-30 code-content gray-bg" >
+                <form class="form-horizontal" >
+                    <h3>{{'Rep.ADD_COMPANY' | translate}}</h3>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-12" for="Default">{{'Rep.COMPANY_NAME' | translate}}</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="Default" ng-model="company.companyName" placeholder="{{'Rep.COMPANY_NAME' | translate}}" ng-class="(errors.companyName.color=='red')? 'b-red':'' " >
+                            <span class="px-12 left red" ng-bind="errors.companyName.error"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label  class="control-label col-sm-12"  for="sel1">{{'Rep.IDENTIFICATION_ID' | translate}}</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="Default" placeholder="{{'Rep.Identification_ID' | translate}}" ng-model="company.Identification" ng-class="(errors.Identification.color=='red')? 'b-red':'' ">
+                            <span class="px-12 left red" ng-bind="errors.Identification.error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label col-sm-12"  for="sel1">{{'Rep.WEBSITE_URL' | translate}}</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="Default" placeholder="{{'Rep.WEBSITE_URL' | translate}}" ng-model="company.companyUrl" ng-class="(errors.companyUrl.color=='red')? 'b-red':'' ">
+                            <span class="px-12 left red" ng-bind="errors.companyUrl.error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label col-sm-12"  for="sel1">{{'Rep.STATUS' | translate}}</label>
+                        <div class="col-sm-12">
+                            <select class="form-control " id="sel1" ng-model="company.status" >
+                                <option value="accept" >{{'Rep.ACCEPT' | translate}}</option>
+                                <option value="pending">{{'Rep.PENDING' | translate}}</option>
+                                <option value="reject">{{'Rep.REJECT' | translate}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-12" for="Subid">{{'Rep.COMPANY_LOGO' | translate}}</label>
+                        <div class="col-sm-12">
+                            <lf-ng-md-file-input  lf-files="company.logo"  lf-required lf-maxcount="1"   lf-api="api" lf-filesize="150MB" lf-totalsize="150MB" lf-mimetype="image/jpeg,image/png"  drag preview progress lf-drag-and-drop-label="ჩააგდეთ ფაილი" lf-browse-label="მონიშნეთ ფაილი..." lf-remove-label="ფაილის წაშლა" > </lf-ng-md-file-input>
+                            <div ng-messages="file.$error" style="color:red;">
+                                <div ng-message="required">This is required.</div>
+                                <div ng-message="maxcount">Too many files.</div>
+                                <div ng-message="filesize">File size too large.</div>
+                                <div ng-message="totalsize">Total size too large.</div>
+                                <div ng-message="mimetype">Mimetype error.</div>
+                            </div>
+                            <span class="px-12 left red" ng-bind="errors.file.error"></span>
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </md-dialog-content>
+            <md-dialog-actions layout="row">
+                <md-button ng-click="cancel()">
+                    {{'Rep.CANCEL' | translate}}
+                </md-button>
+                <md-button ng-click="save()">
+                    {{'Rep.SAVE' | translate}}
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+</script>
+

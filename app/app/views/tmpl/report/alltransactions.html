@@ -1,0 +1,282 @@
+<div class="page page-orders" ng-init="GetData()">
+
+    <div class="pageheader">
+
+        <h2>{{ 'Menu.ALLTRANSACTION' | translate }} <span>// </span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> 'Menu.VERYLINX' | translate </a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{'Menu.REPORT' | translate }}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.">{{'Menu.ALLTRANSACTION' | translate }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+  <!-- page content -->
+  <div class="pagecontent">
+
+
+    <!-- row -->
+    <div class="row">
+      <!-- col -->
+      <div class="col-md-12">
+
+
+        <div class="alert alert-danger" ng-bind-html="'Panel.DANGER' | translate" >
+
+        </div>
+		<div class="row p-10">
+			<div class="col-md-2">
+				<p class="input-group">
+
+					<input type="text" placeholder="{{'Panel.DATE_FROM' | translate }}" class="form-control" uib-datepicker-popup="{{format}}" ng-model="filter.dt_from" is-open="opened_from" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default btnpicker" ng-click="open_from($event)"><i class="fa fa-calendar"></i></button>
+					</span>
+
+                </p>
+			</div>
+			<div class="col-md-2">
+				<p class="input-group">
+
+                  <input type="text" placeholder="{{'Panel.DATE_TO' | translate}} " class="form-control" uib-datepicker-popup="{{format}}" ng-model="filter.dt_to" is-open="opened_to" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default btnpicker" ng-click="open_to($event)"><i class="fa fa-calendar"></i></button>
+                  </span>
+                </p>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+				 
+				  <select class="form-control"  ng-model="filter.company" id="sel1">
+					<option value="">{{'Panel.COMPANY' | translate }}</option>
+					<option value="{{c.cid}}" ng-repeat="c in companies" ng-bind="c.name"></option>
+				  </select>
+				</div>
+			</div>
+			<div class="col-md-1 p-0"> 
+				<div class="form-group">
+				  <select class="form-control" ng-model="filter.type" id="sel1">
+					<option value="">{{'Panel.TYPE' | translate}} </option>
+					<option value="all">'Panel.ALL' | translate </option>
+					<option value="cpa">CPA</option>
+					<option value="cpl">CPL</option>
+					
+				  </select>
+				</div>
+			</div>
+			<div class="col-md-2"> 
+				<div class="form-group">
+				  <select class="form-control" ng-model="filter.status" id="sel1">
+					<option value="">{{'Panel.STATUS' | translate}} </option>
+					<option value="accept">{{'Panel.ACCEPT' | translate}}  </option>
+					<option value="pending">{{'Panel.PENDING' | translate}} </option>
+					<option value="decline">{{'Panel.DECLINE' | translate}} </option>
+				  </select>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="form-group">
+					 <select class="form-control" ng-model="filter.show" id="sel1">
+						<option value="">{{'Panel.SHOW' | translate}} </option>
+						<option value="day">{{'Panel.DAY' | translate}} </option>
+						<option value="month">{{'Panel.MONTH' | translate}} </option>
+					  </select>
+				</div>
+			</div>
+			<div class="col-md-1">
+				<div class="form-group">
+					<a href="" ng-click="refreshData()" class="icon icon-info icon-ef-6 icon-color m-0" style="width: 32px;height: 32px;"><i class="px-22 fa fa-refresh" style="line-height:32px"></i></a>
+					
+				</div>
+			</div>
+		</div>
+		<section class="tile" fullscreen="isFullscreen07">
+
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font"><strong>{{'Panel.STATISTIC' | translate}}  </strong></h1>
+            <ul class="controls">
+              <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                  <li>
+                    <a href tile-control-toggle>
+                      <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                      <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-refresh ng-click="ajaxFaker()">
+                      <fa name="refresh"></fa> Refresh
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-fullscreen ng-click="isFullscreen07 = !isFullscreen07">
+                      <fa name="expand"></fa> Fullscreen
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-lightbox>
+                      <fa name="magnet"></fa> Open in Lightbox
+                    </a>
+                  </li>
+
+                </ul>
+
+              </li>
+              <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+            </ul>
+          </div>
+          <!-- /tile header -->
+		  <div  morris-line-chart
+                      line-data='basicData'
+                      line-xkey='date'
+                      line-ykeys='["cpl", "cpa"]'
+                      line-labels='["cpl", "cpa"]'
+                      line-colors='["#16a085","#FF0066"]' style="height: 250px"></div>
+          <!-- tile body -->
+          
+          <!-- /tile body --> 
+
+        </section>
+
+        <!-- tile -->
+        <section class="tile" fullscreen="isFullscreen01">
+		
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font" ng-bind="'Panel.TRANSACTION_LIST' | translate"><strong>ტრანზაქციების</strong> სია</h1>
+				
+			<center> <span style="top: -19px;position: relative;">{{'Panel.FOUND' | translate}} {{count}}  {{'Panel.RECORD' | translate}}</span><span class="pull-right" style="top: -19px;    right: 110px; position: relative;">{{'Panel.FULLAMOUNT' | translate}} <strong>{{cash}}</strong>  </span></center>
+            <ul class="controls">
+
+
+              <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                <a href class="dropdown-toggle" uib-dropdown-toggle>Tools <i class="fa fa-angle-down ml-5"></i></a>
+
+                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                  <li>
+                    <a href>Export to excell</a>
+                  </li>
+                 
+                  
+
+                </ul>
+
+              </li>
+
+              <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                  <li>
+                    <a href tile-control-toggle>
+                      <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                      <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-refresh ng-click="ajaxFaker()">
+                      <fa name="refresh"></fa> Refresh
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                      <fa name="expand"></fa> Fullscreen
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-lightbox>
+                      <fa name="magnet"></fa> Open in Lightbox
+                    </a>
+                  </li>
+
+                </ul>
+
+              </li>
+             
+            </ul>
+          </div>
+          <!-- /tile header -->
+
+          <!-- tile body -->
+          <div class="tile-body" >
+            <div class="table-responsive-wide">
+              <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped table-hover table-custom" style="min-width: 1000px;">
+                <thead>
+                  <tr>
+                    <th style="width:40px;">
+                      <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                        <input type="checkbox" ng-model="selectedAll" ng-click="selectAll()"><i></i>
+                      </label>
+                    </th>
+                   
+                    <th style="width:180px;" ng-bind="'Panel.COMPANY' | translate">კამპანია</th>
+                    <th style="width:200px;"  ng-bind="'Panel.DATE' | translate">თარიღი</th>
+                    <th  ng-bind="'Panel.TYPE' | translate"> ტიპი</th>
+                    <th style="width:90px;"  ng-bind="'Panel.AMOUNT' | translate">თანხა</th>
+                    <th style="width:80px;"  ng-bind="'Panel.STATUS' | translate">სტატუსი</th>
+                   
+                  </tr>
+                  </thead> 
+                  <tfoot>
+                  <tr>
+                    <th></th>
+
+                      <th style="width:180px;" ng-bind="'Panel.COMPANY' | translate">კამპანია</th>
+                      <th style="width:200px;"  ng-bind="'Panel.DATE' | translate">თარიღი</th>
+                      <th  ng-bind="'Panel.TYPE' | translate"> ტიპი</th>
+                      <th style="width:90px;"  ng-bind="'Panel.AMOUNT' | translate">თანხა</th>
+                      <th style="width:80px;"  ng-bind="'Panel.STATUS' | translate">სტატუსი</th>
+                   
+                  </tr>
+                  </tfoot>
+                  <tbody>
+                  <tr ng-repeat="order in orders">
+                    <td><label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" ng-model="order.selected"><i></i></label></td>
+                 
+                    <td>{{ order.name }}</td>
+                    <td>{{ order.date | date:'mediumDate'}}</td>
+                    <td>{{ order.type }}</td>
+                   
+                    <td>{{ order.user_price }}</td>
+                    <td><span class="label" ng-class="{'bg-success' : order.status == 'accept','bg-lightred' : order.status == 'cancel','bg-primary' : order.status == 'pending'}">{{ order.status }}</span></td>
+            
+                  </tr>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- /tile body -->
+
+        </section>
+        <!-- /tile -->
+
+      </div>
+      <!-- /col -->
+    </div>
+    <!-- /row -->
+
+
+
+
+  </div>
+  <!-- /page content -->
+
+
+
+
+</div>

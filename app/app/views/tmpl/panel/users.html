@@ -1,0 +1,481 @@
+<div class="page page-tables-bootstrap" ng-init="GetUsers()">
+
+
+
+
+  <!-- page header -->
+  <div class="pageheader">
+
+    <h2>{{'Menu.USERS' | translate}} <span>// {{page.subtitle}}</span></h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{'Menu.VERYINX' | translate}}</a>
+        </li>
+        <li>
+          <a href="javascript:;">{{'Menu.PANEL' | translate}}</a>
+        </li>
+        <li>
+          <a ui-sref="app.tables.bootstrap">{{'Menu.USERS' | translate}}</a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+  <!-- /page header -->
+
+
+
+
+
+
+  <!-- page content -->
+  <div class="pagecontent">
+
+
+    <!-- row -->
+    <div class="row">
+      <!-- col -->
+      <div class="col-md-12">
+
+
+        <!-- tile -->
+        <section class="tile" fullscreen="isFullscreen07">
+
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+			  <h1 class="custom-font">&nbsp;<!--span><strong>Advanced</strong> Table</span--></h1>
+            <ul class="controls">
+              <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                  <li>
+                    <a href tile-control-toggle>
+                      <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                      <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-refresh ng-click="ajaxFaker()">
+                      <fa name="refresh"></fa> Refresh
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-fullscreen ng-click="isFullscreen07 = !isFullscreen07">
+                      <fa name="expand"></fa> Fullscreen
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-lightbox>
+                      <fa name="magnet"></fa> Open in Lightbox
+                    </a>
+                  </li>
+
+                </ul>
+
+              </li>
+              <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+            </ul>
+          </div>
+          <!-- /tile header -->
+
+          <!-- tile widget -->
+          <div class="tile-widget">
+
+            <div class="row">
+
+              <div class="col-sm-5">
+               
+              </div>
+
+              <div class="col-sm-3"></div>
+
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <input type="text" class="input-sm form-control" placeholder="Search...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default" type="button">Go!</button>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <!-- /tile widget -->
+
+          <!-- tile body -->
+          <div class="tile-body p-0">
+
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th style="width:20px;">
+                      <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                        <input type="checkbox" ng-model="selectedAll" ng-change="selectAll()"><i></i>
+                      </label>
+                    </th>
+                    <th ng-bind="'Rep.FNAME' | translate" >სახელი </th>
+                    <th ng-bind="'Rep.LNAME' | translate" >გვარი</th>
+                    <th ng-bind="'Rep.MAIL' | translate" >ელფოსტა</th>
+                    <th ng-bind="'Rep.TELEPHONE' | translate">ტელეფონი</th>
+                    <th ng-bind="'Rep.WEBSITE' | translate" >ვებგვერდი</th>
+                    <th ng-bind="'Rep.GROUP' | translate">ჯგუფი</th>
+                    <th ng-bind="'Rep.STATUS' | translate">სტატუსი</th>
+                    <th ng-bind="'Rep.VERIFIED' | translate">ვერიფიკაცია</th>
+                    <th ng-bind="'Rep.VIEW' | translate" >ნახვა</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="user in users.slice(((bigCurrentPage-1)*itemsPerPage), ((bigCurrentPage)*itemsPerPage))">
+                    <td><label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" ng-model="user.selected"><i></i></label></td>
+                    <td>{{user.fname}}</td>
+                    <td>{{user.lname}}</td>
+                    <td>{{user.mail}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>{{user.website}}</td>
+                    <td>{{user.groupName}}</td> 
+                    <td style="color:{{user.color}}" >{{user.status}}</td>
+					  <td ng-class="{'red' : user.verified == 'no','green' : user.verified == 'yes'}">{{user.verified}}</td>
+					  <td><a href="" ng-click="editUser($event,user)" class="m-0 icon icon-success icon-ef-3 icon-ef-3b icon-color" style="width: 32px;height: 32px;"><i class="fa fa-edit" style="line-height: 33px;font-size: 17px;"></i></a></td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+
+          </div>
+          <!-- /tile body -->
+
+          <!-- tile footer -->
+          <div class="tile-footer dvd dvd-top">
+            <div class="row">
+
+              <div class="col-sm-5 hidden-xs">
+                
+              </div>
+
+              <div class="col-sm-3 text-center">
+                <small class="text-muted">showing 20-30 of 50 items</small>
+              </div>
+
+              <div class="col-sm-4 text-right">
+                <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+              </div>
+
+            </div>
+          </div>
+          <!-- /tile footer -->
+
+        </section>
+        <!-- /tile -->
+
+
+      </div>
+      <!-- /col -->
+    </div>
+    <!-- /row -->
+
+
+
+
+
+
+  </div>
+  <!-- /page content -->
+</div>
+
+<script type="text/ng-template" id="advertiser.tmpl.html">
+	<md-dialog>
+		<form ng-cloak>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>{{ 'Rep.EDIT' | translate}}</h2>
+					<span flex></span>
+					{{advertiser.status}}
+				</div>
+			</md-toolbar>
+			<md-dialog-content>
+				<div class="md-dialog-content" style="width:600px;">
+					<form class="signup-form left">
+						<div class="form-group">
+							<label>{{ 'Rep.FNAME' | translate}} </label>
+							<input type="text" class="form-control radius20" placeholder="{{ 'Rep.FNAME' | translate}}" ng-class="(errors.fname.color=='red')? 'b-red':'' " ng-model="advertiser.fname">
+							<span class="px-12 left red" ng-bind="errors.fname.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.LNAME' | translate}} </label>
+							<input type="text" class="form-control radius20" placeholder="{{ 'Rep.LNAME' | translate}}" ng-model="advertiser.lname" ng-class="(errors.lname.color=='red')? 'b-red':'' ">
+							<span class="px-12 left red" ng-bind="errors.lname.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.MAIL' | translate}} </label>
+							<input type="mail" class="form-control radius20" placeholder="{{ 'Rep.MAIL' | translate}}" ng-model="advertiser.mail" ng-class="(errors.mail.color=='red')? 'b-red':'' ">
+							<span class="px-12 left red" ng-bind="errors.mail.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.USER' | translate}} </label>
+							<input type="mail" class="form-control radius20" placeholder="{{ 'Rep.USER' | translate}}" ng-model="advertiser.username" ng-class="(errors.username.color=='red')? 'b-red':'' ">
+							<span class="px-12 left red" ng-bind="errors.username.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.WEBSITE_URL' | translate}} </label>
+							<input type="text" class="form-control radius20" placeholder="{{ 'Rep.WEBSITE_URL' | translate}}" ng-model="advertiser.url" ng-class="(errors.url.color=='red')? 'b-red':'' ">
+							<span class="px-12 left red" ng-bind="errors.url.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.PHONE' | translate}}  </label>
+							<input type="text" class="form-control radius20" placeholder="{{ 'Rep.PHONE' | translate}}" ng-model="advertiser.phone"  ng-class="(errors.phone.color=='red')? 'b-red':'' ">
+							<span class="px-12 left red" ng-bind="errors.phone.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.SEGMENT' | translate}} </label>
+							<select class="form-control radius20" id="sel1" ng-model="advertiser.segment" ng-class="(errors.segment.color=='red')? 'b-red':'' ">
+								<option value='' ng-bind-html="'Form.CHOOSE_SEGMENT' | translate"></option>
+								<option value="1" ng-bind-html="'Form.SEGMENT1' | translate">2</option>
+								<option value="2"  ng-bind-html="'Form.SEGMENT2' | translate">3</option>
+								<option value="3"  ng-bind-html="'Form.SEGMENT3' | translate">4</option>
+								<option value="4"  ng-bind-html="'Form.SEGMENT4' | translate">4</option>
+								<option value="5"  ng-bind-html="'Form.SEGMENT5' | translate">4</option>
+								<option  value="6"  ng-bind-html="'Form.SEGMENT6' | translate">4</option>
+								<option value="7"  ng-bind-html="'Form.SEGMENT7' | translate">4</option>
+								<option value="8"  ng-bind-html="'Form.SEGMENT8' | translate">4</option>
+								<option value="100"  ng-bind-html="'Form.SEGMENT9' | translate">4</option>
+							</select>
+							<span class="px-12 left red" ng-bind="errors.segment.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.VERIFICATION' | translate}} </label>
+							<select class="form-control radius20" id="sel1" ng-model="advertiser.verified" >
+								<option value="yes">{{ 'Rep.YES' | translate}}</option>
+								<option value="no">{{ 'Rep.NO' | translate}}</option>
+
+							</select>
+							<span class="px-12 left red" ng-bind="errors.status.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.STATUS' | translate}} </label>
+							<select class="form-control radius20" id="sel1" ng-model="advertiser.status" >
+								<option value="active">{{ 'Rep.ACTIVE' | translate}}</option>
+								<option value="pasive">{{ 'Rep.PASIVE' | translate}}</option>
+								<option value="pending">{{ 'Rep.PENDING' | translate}}</option>
+
+							</select>
+							<span class="px-12 left red" ng-bind="errors.status.error"></span>
+						</div>
+						<md-checkbox ng-model="advertiser.send_message" aria-label="Checkbox 1">
+							{{ 'Rep.SEND_EMAIL' | translate}}
+						</md-checkbox>
+					</form>
+				</div>
+			</md-dialog-content>
+			<md-dialog-actions layout="row">
+				<md-button ng-click="cancel()">
+					{{ 'Rep.CANCEL' | translate}}
+				</md-button>
+				<md-button ng-click="save()">
+					{{ 'Rep.SAVE' | translate}}
+				</md-button>
+			</md-dialog-actions>
+		</form>
+	</md-dialog>
+</script>
+<script type="text/ng-template" id="publisher.tmpl.html">
+	<md-dialog aria-label="Mango (Fruit)">
+		<form ng-cloak>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>{{ 'Rep.EDIT' | translate}}</h2>
+					<span flex></span>
+					{{advertiser.status}}
+				</div>
+			</md-toolbar>
+
+			<md-dialog-content  style="width:600px;">
+				<div class="md-dialog-content">
+					<form class="signup-form" ng-if="publisher.step==1">
+						<h3 class="px-18 strong left form-color"> {{ 'Rep.GENERAL_INFORMATION' | translate}}</h3>
+						<div class="form-group left">
+							<label>{{ 'Rep.FNAME' | translate}} </label>
+							<input type="text" class="form-control radius20" placeholder="{{ 'Rep.FNAME' | translate}}" ng-class="(errors.fname.color=='red')? 'b-red':'' " ng-model="publisher.fname">
+							<span class="px-12 left red" ng-bind="errors.fname.error"></span>
+						</div>
+						<div class="form-group left">
+							<label>{{ 'Rep.LNAME' | translate}} </label>
+							<input type="text" class="form-control radius20" placeholder="{{ 'Rep.LNAME' | translate}}" ng-class="(errors.lname.color=='red')? 'b-red':'' " ng-model="publisher.lname">
+							<span class="px-12 left red" ng-bind="errors.lname.error"></span>
+						</div>
+						<div class="form-group left">
+							<label>{{ 'Rep.STATUS' | translate}}</label>
+							<select class="form-control radius20" id="sel1" ng-class="(errors.p_status.color=='red')? 'b-red':'' " ng-model="publisher.p_status">
+								<option selected value="" ng-bind-html="'Form.YOUR_STATUS'|translate"></option>
+								<option value="1" ng-bind-html="'Form.INDMETSARME'|translate"></option>
+								<option value="2" ng-bind-html="'Form.FIZPIRI'|translate">ფიზიკური პირი</option>
+								<option value="3" ng-bind-html="'Form.SHPS'|translate">შპს</option>
+							</select>
+							<span class="px-12 left red" ng-bind="errors.p_status.error"></span>
+						</div>
+
+						<div class="form-group left">
+							<label>{{ 'Rep.COUNTRY' | translate}} </label>
+							<select class="form-control radius20" id="sel1" ng-class="(errors.country.color=='red')? 'b-red':'' " ng-model="publisher.country">
+								<option value="" ng-bind-html="'Form.YOUR_COUNTRY'|translate"></option>
+								<option value="1" ng-bind-html="'Form.COUNTRY1'|translate">2</option>
+								<option value="2" ng-bind-html="'Form.COUNTRY2'|translate">2</option>
+								<option value="3" ng-bind-html="'Form.COUNTRY3'|translate">2</option>
+								<option value="4" ng-bind-html="'Form.COUNTRY4'|translate">2</option>
+								<option value="5" ng-bind-html="'Form.COUNTRY5'|translate">2</option>
+							</select>
+							<span class="px-12 left red" ng-bind="errors.country.error"></span>
+						</div>
+						<h3 class="px-18 strong left form-color"> {{ 'Rep.SETUP_ACCOUNT' | translate}}</h3>
+						<div class="form-group left">
+							<label>{{ 'Rep.MAIL' | translate}} </label>
+							<input type="text" class="form-control radius20" placeholder="{{ 'Rep.MAIL' | translate}}" ng-class="(errors.mail.color=='red')? 'b-red':'' " ng-model="publisher.mail">
+							<span class="px-12 left red" ng-bind="errors.mail.error"></span>
+						</div>
+						<div class="form-group left">
+							<label>{{ 'Rep.USER' | translate}} </label>
+							<input type="text" class="form-control radius20" placeholder="{{ 'Rep.USER' | translate}}" ng-class="(errors.username.color=='red')? 'b-red':'' " ng-model="publisher.username">
+							<span class="px-12 left red" ng-bind="errors.username.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.SPACE_TYPE' | translate}} </label>
+							<select class="form-control radius20" placeholder=">{{ 'Rep.YOUR_ADD_SPACE_TYPE' | translate}}" id="space_type" ng-class="(errors.space_type.color=='red')? 'b-red':'' " ng-model="publisher.space_type">
+								<option value="" ng-bind=" 'Form.YOUR_AD_SPACE_TYPE'| translate"></option>
+								<option value="1" ng-bind=" 'Form.SPACE1'| translate"></option>
+								<option value="2" ng-bind=" 'Form.SPACE2'| translate"></option>
+								<option value="3" ng-bind=" 'Form.SPACE3'| translate"></option>
+								<option value="4" ng-bind=" 'Form.SPACE4'| translate"></option>
+								<option value="5" ng-bind=" 'Form.SPACE5'| translate"></option>
+							</select>
+							<span class="px-12 left red" ng-bind="errors.space_type.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.SPACE_ADDRESS' | translate}}</label>
+							<input type="text" class="form-control radius20" id="sp_address"
+								   ng-class="(errors.sp_address.color=='red')? 'b-red':'' " placeholder="{{ 'Rep.ADD_SPACE_ADDRESS' | translate}}" ng-model="publisher.sp_address">
+							<span class="px-12 left red" ng-bind="errors.sp_address.error"></span>
+
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.SPACE_NAME' | translate}} </label>
+							<input type="text" class="form-control radius20" id="sp_name" placeholder="{{ 'Rep.SPACE_NAME' | translate}}"
+								   ng-class="(errors.sp_name.color=='red')? 'b-red':'' " ng-model="publisher.sp_name">
+							<span class="px-12 left red" ng-bind="errors.sp_name.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.COUNTRY' | translate}}</label>
+							<select class="form-control radius20" id="s_region" ng-class="(errors.s_region.color=='red')? 'b-red':'' " ng-model="publisher.s_region">
+								<option value="" ng-bind=" 'Form.SALES_REGION'| translate"></option>
+								<option value="1" ng-bind-html="'Form.COUNTRY1'|translate">2</option>
+								<option value="2" ng-bind-html="'Form.COUNTRY2'|translate">2</option>
+								<option value="3" ng-bind-html="'Form.COUNTRY3'|translate">2</option>
+								<option value="4" ng-bind-html="'Form.COUNTRY4'|translate">2</option>
+								<option value="5" ng-bind-html="'Form.COUNTRY5'|translate">2</option>
+							</select>
+							<span class="px-12 left red" ng-bind="errors.s_region.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.CATEGORY' | translate}}</label>
+							<select class="form-control radius20" id="p_category"  ng-class="(errors.p_category.color=='red')? 'b-red':'' " ng-model="publisher.p_category">
+								<option value="" ng-bind=" 'Form.CATEGORY'| translate"></option>
+								<optgroup label="{{'Form.HEAD1'| translate }}">
+									<option value="2" ng-bind="'Form.SUB1' | translate"></option>
+									<option value="3" ng-bind="'Form.SUB2' | translate"></option>
+									<option value="4" ng-bind="'Form.SUB3' | translate"></option>
+									<option value="5" ng-bind="'Form.SUB4' | translate"></option>
+									<option value="6" ng-bind="'Form.SUB5' | translate"></option>
+									<option value="7" ng-bind="'Form.SUB6' | translate"></option>
+									<option value="8" ng-bind="'Form.SUB7' | translate"></option>
+									<option value="9" ng-bind="'Form.SUB8' | translate"></option>
+									<option value="10" ng-bind="'Form.SUB9' | translate"></option>
+									<option value="11" ng-bind="'Form.SUB10' | translate"></option>
+									<option value="12" ng-bind="'Form.SUB11' | translate"></option>
+									<option value="13" ng-bind="'Form.SUB12' | translate"></option>
+									<option value="14" ng-bind="'Form.SUB13' | translate"></option>
+									<option value="15" ng-bind="'Form.SUB14' | translate"></option>
+									<option value="16" ng-bind="'Form.SUB15' | translate"></option>
+									<option value="17" ng-bind="'Form.SUB16' | translate"></option>
+
+								</optgroup>
+								<optgroup label="{{'Form.HEAD2'| translate }}">
+									<option value="19" ng-bind="'Form.SUB21' | translate"></option>
+									<option value="20" ng-bind="'Form.SUB22' | translate"></option>
+									<option value="21" ng-bind="'Form.SUB23' | translate"></option>
+									<option value="22" ng-bind="'Form.SUB24' | translate"></option>
+									<option value="23" ng-bind="'Form.SUB25' | translate"></option>
+									<option value="24" ng-bind="'Form.SUB26' | translate"></option>
+									<option value="25" ng-bind="'Form.SUB27' | translate"></option>
+
+								</optgroup>
+								<optgroup label="{{'Form.HEAD3'| translate }}">
+									<option value="27" ng-bind="'Form.SUB29' | translate"></option>
+									<option value="28" ng-bind="'Form.SUB30' | translate"></option>
+									<option value="29" ng-bind="'Form.SUB31' | translate"></option>
+									<option value="30" ng-bind="'Form.SUB32' | translate"></option>
+
+								</optgroup>
+								<optgroup label="{{'Form.HEAD4'| translate }}">
+									<option value="32" ng-bind="'Form.SUB39' | translate"></option>
+									<option value="33" ng-bind="'Form.SUB40' | translate"></option>
+									<option value="34" ng-bind="'Form.SUB41' | translate"></option>
+									<option value="35" ng-bind="'Form.SUB42' | translate"></option>
+									<option value="36" ng-bind="'Form.SUB43' | translate"></option>
+									<option value="37" ng-bind="'Form.SUB44' | translate"></option>
+
+								</optgroup>
+								<optgroup label="{{'Form.HEAD5'| translate }}">
+									<option value="39" ng-bind="'Form.SUB47' | translate"></option>
+									<option value="40" ng-bind="'Form.SUB48' | translate"></option>
+
+								</optgroup>
+								<optgroup label="{{'Form.HEAD6'| translate }}">
+									<option value="42" ng-bind="'Form.SUB49' | translate"></option>
+									<option value="43" ng-bind="'Form.SUB50' | translate"></option>
+									<option value="44" ng-bind="'Form.SUB51' | translate"></option>
+									<option value="45" ng-bind="'Form.SUB52' | translate"></option>
+								</optgroup>
+								<option value="46" ng-bind="'Form.SUB53' | translate"></option>
+							</select>
+							<span class="px-12 left red" ng-bind="errors.p_category.error"></span>
+						</div>
+						<div class="form-group" >
+							<textarea  class="form-control radius20" id="promote" placeholder="{{ 'Rep.PROMOTE' | translate}}" ng-model="publisher.promote"  ng-class="(errors.promote.color=='red')? 'b-red':'' ">  </textarea>
+							<span class="px-12 left red" ng-bind="errors.promote.error"></span>
+						</div>
+						<div class="form-group">
+							<label>{{ 'Rep.STATUS' | translate}}</label>
+							<select class="form-control radius20" id="sel1" ng-model="publisher.status" >
+								<option value="active">{{ 'Rep.ACTIVE' | translate}}</option>
+								<option value="pasive">{{ 'Rep.PASIVE' | translate}}</option>
+								<option value="pending">{{ 'Rep.PENDING' | translate}}</option>
+
+							</select>
+							<span class="px-12 left red" ng-bind="errors.status.error"></span>
+						</div>
+						<md-checkbox ng-model="publisher.send_message" aria-label="Checkbox 1">
+							{{ 'Rep.SEND_MAIL' | translate}}
+						</md-checkbox>
+					</form>
+				</div>
+			</md-dialog-content>
+
+			<md-dialog-actions layout="row">
+				<md-button ng-click="cancel()">
+					{{ 'Rep.CANCEL' | translate}}
+				</md-button>
+				<md-button ng-click="save()">
+					{{ 'Rep.SAVE' | translate}}
+				</md-button>
+			</md-dialog-actions>
+		</form>
+	</md-dialog>
+</script>

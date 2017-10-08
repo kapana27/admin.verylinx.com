@@ -1,0 +1,152 @@
+<div class="page page-timeline">
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{ 'Menu.COMPANIES' | translate}} <span>// {{page.subtitle | translate}}</span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{ 'Menu.VERYLINX' | translate}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{ 'Menu.PROGRAMS' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.">{{ 'Menu.COMPANIES' | translate}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+
+    <!-- page content -->
+    <div class="pagecontent">
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+
+
+            <div class="col-md-1" style="width:50px;"> </div>
+            <div class="col-md-11 mt-30 bg-white">
+
+                <section class="pt-30" style="min-height:500px;">
+                    <div class="row m-t-50">
+                        <button type="button" class="btn btn-default" ng-click="addCompany($event)" >{{ 'Rep.ADD_COMPANY' | translate}}</button></br>
+                        <div style="height:30px;"></div>
+                        <table class="table table-hover ">
+                            <thead>
+                            <tr>
+                                <th ng-bind="'Rep.ID' | translate" >ID</th>
+                                <th ng-bind="'Rep.NAME' | translate" >დასახელება</th>
+                                <th ng-bind="'Rep.LOGO' | translate" >ლოგო</th>
+                                <th ng-bind="'Rep.IDENTIFICATION_ID' | translate" >საიდენტიფიკაციო N#</th>
+                                <th ng-bind="'Rep.STATUS' | translate">სტატუსი</th>
+                                <th ng-bind="'Rep.EDIT' | translate">რედაქტირება</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="advertiser-companies" ng-repeat="c in companies">
+                                <td ng-bind="c.id"></td>
+                                <td ng-bind="c.companyName"></td>
+                                <td><img src="b/getImage?logo={{c.logo}}"/> </td>
+                                <td ng-bind="c.Identification"> </td>
+                                <td ng-bind="c.status"> </td>
+                                <td><button type="button" class="btn btn-default" ng-click="addCompany($event,c,c.logo)" ng-bind="'Rep.EDIT' | translate">რედაქტირება</button> </td>
+                            </tr>
+                            <tr ng-if="companies.length==0">
+                                <td colspan="6">
+                                    <center ng-bind="'Rep.CAMPAIGN_NOT_FOUND' | translate">
+                                        კამპანია არ მოიძებნა
+                                    </center>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </section>
+            </div>
+
+
+
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /page content -->
+</div>
+<script type="text/ng-template" id="addcompany.tmpl.html">
+    <md-dialog >
+        <form ng-cloak>
+
+            <md-dialog-content class="p-30 code-content gray-bg" >
+                <form class="form-horizontal" >
+                    <h3>{{'Rep.ADD_COMPANY' | translate}}</h3>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-12" for="Default">{{'Rep.COMPANY_NAME' | translate}}</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="Default" ng-model="company.companyName" placeholder="{{'Rep.COMPANY_NAME' | translate}}" ng-class="(errors.companyName.color=='red')? 'b-red':'' " >
+                            <span class="px-12 left red" ng-bind="errors.companyName.error"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label  class="control-label col-sm-12"  for="sel1">{{'Rep.IDENTIFICATION_ID' | translate}}</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="Default" placeholder="{{'Rep.IDENTIFICATION_ID' | translate}}" ng-model="company.Identification" ng-class="(errors.Identification.color=='red')? 'b-red':'' ">
+                            <span class="px-12 left red" ng-bind="errors.Identification.error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label col-sm-12"  for="sel1">{{'Rep.WEBSITE_URL' | translate}}</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="Default" placeholder="{{'Rep.WEBSITE_URL' | translate}}" ng-model="company.companyUrl" ng-class="(errors.companyUrl.color=='red')? 'b-red':'' ">
+                            <span class="px-12 left red" ng-bind="errors.companyUrl.error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-12" for="Subid">{{'Rep.COMPANY_LOGO' | translate}}</label>
+                        <div class="col-sm-12">
+                            <lf-ng-md-file-input  lf-files="company.logo"  lf-required lf-maxcount="1"   lf-api="api" lf-filesize="150MB" lf-totalsize="150MB" lf-mimetype="image/jpeg,image/png"  drag preview progress lf-drag-and-drop-label="ჩააგდეთ ფაილი" lf-browse-label="მონიშნეთ ფაილი..." lf-remove-label="ფაილის წაშლა" > </lf-ng-md-file-input>
+                            <div ng-messages="file.$error" style="color:red;">
+                                <div ng-message="required">This is required.</div>
+                                <div ng-message="maxcount">Too many files.</div>
+                                <div ng-message="filesize">File size too large.</div>
+                                <div ng-message="totalsize">Total size too large.</div>
+                                <div ng-message="mimetype">Mimetype error.</div>
+                            </div>
+                            <span class="px-12 left red" ng-bind="errors.file.error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-12 left  m-t-20">
+                            <button type="button" class="btn btn-primary px-25 radius-0 btn-webmaster weight-400 "  ng-click="AddCompany()">{{'Rep.ADD' | translate}}</button>
+                        </div>
+                        <span class="px-12  green" ng-bind="success"></span>
+                    </div>
+                </form>
+
+            </md-dialog-content>
+
+        </form>
+    </md-dialog>
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

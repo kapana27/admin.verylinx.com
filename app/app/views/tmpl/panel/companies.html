@@ -1,0 +1,264 @@
+<div class="page page-tables-bootstrap" ng-init="GetCompanies()">
+
+
+
+
+  <!-- page header -->
+  <div class="pageheader">
+
+    <h2>{{'Menu.CATEGORIES' | translate }} <span>// {{page.subtitle}}</span></h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{'Menu.VERYLINX' | translate }}</a>
+        </li>
+        <li>
+          <a href="javascript:;">{{'Menu.PANEL' | translate }}</a>
+        </li>
+        <li>
+          <a ui-sref="app.tables.bootstrap">{{'Menu.COMPANIES' | translate }}</a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+  <!-- /page header -->
+
+
+
+
+
+
+  <!-- page content -->
+  <div class="pagecontent">
+
+
+    <!-- row -->
+    <div class="row">
+      <!-- col -->
+      <div class="col-md-12">
+
+
+        <!-- tile -->
+        <section class="tile" fullscreen="isFullscreen07">
+
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+              <h1 class="custom-font"><!--span><strong>Advanced</strong> Table</span--></h1>
+            <ul class="controls">
+              <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                  <li>
+                    <a href tile-control-toggle>
+                      <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                      <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-refresh ng-click="ajaxFaker()">
+                      <fa name="refresh"></fa> Refresh
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-fullscreen ng-click="isFullscreen07 = !isFullscreen07">
+                      <fa name="expand"></fa> Fullscreen
+                    </a>
+                  </li>
+                  <li>
+                    <a href tile-control-lightbox>
+                      <fa name="magnet"></fa> Open in Lightbox
+                    </a>
+                  </li>
+
+                </ul>
+
+              </li>
+              <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+            </ul>
+          </div>
+          <!-- /tile header -->
+
+          <!-- tile widget -->
+          <div class="tile-widget">
+
+            <div class="row">
+
+              <div class="col-sm-5">
+               
+              </div>
+
+              <div class="col-sm-3"></div>
+
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <input type="text" class="input-sm form-control" placeholder="Search...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default" type="button">Go!</button>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <!-- /tile widget -->
+
+          <!-- tile body -->
+          <div class="tile-body p-0">
+
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th style="width:20px;">
+                      <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                        <input type="checkbox" ng-model="selectedAll" ng-change="selectAll()"><i></i>
+                      </label>
+                    </th>
+                    <th ng-bind="'Rep.COMPANY' | translate">კომპანია </th>
+                    <th ng-bind="'Rep.DATE' | translate">თარიღი </th>
+                    <th ng-bind="'Rep.USER' | translate"> მომხმარებელი</th>
+                    <th ng-bind="'Rep.MAIL' | translate">ელფოსტა</th>
+                    <th style="width:200px;" ng-bind="'Rep.WEBSITE' | translate" >ვებგვერდი</th>
+                    <th ng-bind="'Rep.IDENTIFICATION' | translate">საიდენტიფიკაციო</th>
+                    <th ng-bind="'Rep.STATUS' | translate">სტატუსი</th>
+                    <th ng-bind="'Rep.VIEW' | translate">ნახვა</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="user in users.slice(((bigCurrentPage-1)*itemsPerPage), ((bigCurrentPage)*itemsPerPage))">
+                    <td><label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" ng-model="user.selected"><i></i></label></td>
+                    <td>{{user.companyName}}</td>
+                    <td>{{user.publish}}</td>
+                    <td>{{user.username}}</td>
+                    <td><a href="mailto:{{user.mail}}" target="_top">{{user.mail}}</a></td>
+                    <td><a href="{{user.companyUrl}}" target='_blank'>{{user.companyUrl}} </a></td>
+                    <td>{{user.Identification}}</td> 
+                    <td style="color:{{user.color}}" >{{user.status}}</td>
+                    <td><a href="" ng-click="editcompany($event,user)" class="m-0 icon icon-success icon-ef-3 icon-ef-3b icon-color" style="width: 32px;height: 32px;"><i class="fa fa-edit" style="line-height: 33px;font-size: 17px;"></i></a></td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+
+          </div>
+          <!-- /tile body -->
+
+          <!-- tile footer -->
+          <div class="tile-footer dvd dvd-top">
+            <div class="row">
+
+              <div class="col-sm-5 hidden-xs">
+                
+              </div>
+
+              <div class="col-sm-3 text-center">
+                <small class="text-muted"></small>
+              </div>
+
+              <div class="col-sm-4 text-right">
+                <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+              </div>
+
+            </div>
+          </div>
+          <!-- /tile footer -->
+
+        </section>
+        <!-- /tile -->
+
+
+      </div>
+      <!-- /col -->
+    </div>
+    <!-- /row -->
+
+
+
+
+
+
+  </div>
+  <!-- /page content -->
+</div>
+
+<script type="text/ng-template" id="company.tmpl.html">
+    <md-dialog >
+        <form ng-cloak>
+
+            <md-dialog-content class="p-30 code-content gray-bg" >
+                <form class="form-horizontal" >
+                    <h3>{{'Rep.ADD_COMPANY' | translate}}</h3>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-12" for="Default">{{'Rep.COMPANY_NAME' | translate}}</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="Default" ng-model="company.companyName" placeholder="{{'Rep.COMPANY_NAME' | translate}}" ng-class="(errors.companyName.color=='red')? 'b-red':'' " >
+                            <span class="px-12 left red" ng-bind="errors.companyName.error"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label  class="control-label col-sm-12"  for="sel1">{{'Rep.IDENTIFICATION_ID' | translate}}</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="Default" placeholder="{{'Rep.Identification_ID' | translate}}" ng-model="company.Identification" ng-class="(errors.Identification.color=='red')? 'b-red':'' ">
+                            <span class="px-12 left red" ng-bind="errors.Identification.error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label col-sm-12"  for="sel1">{{'Rep.WEBSITE_URL' | translate}}</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="Default" placeholder="{{'Rep.WEBSITE_URL' | translate}}" ng-model="company.companyUrl" ng-class="(errors.companyUrl.color=='red')? 'b-red':'' ">
+                            <span class="px-12 left red" ng-bind="errors.companyUrl.error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label col-sm-12"  for="sel1">{{'Rep.STATUS' | translate}}</label>
+                        <div class="col-sm-12">
+                            <select class="form-control " id="sel1" ng-model="company.status" >
+                                <option value="accept" >{{'Rep.ACCEPT' | translate}}</option>
+                                <option value="pending">{{'Rep.PENDING' | translate}}</option>
+                                <option value="reject">{{'Rep.REJECT' | translate}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-12" for="Subid">{{'Rep.COMPANY_LOGO' | translate}}</label>
+                        <div class="col-sm-12">
+                            <lf-ng-md-file-input  lf-files="company.logo"  lf-required lf-maxcount="1"   lf-api="api" lf-filesize="150MB" lf-totalsize="150MB" lf-mimetype="image/jpeg,image/png"  drag preview progress lf-drag-and-drop-label="ჩააგდეთ ფაილი" lf-browse-label="მონიშნეთ ფაილი..." lf-remove-label="ფაილის წაშლა" > </lf-ng-md-file-input>
+                            <div ng-messages="file.$error" style="color:red;">
+                                <div ng-message="required">This is required.</div>
+                                <div ng-message="maxcount">Too many files.</div>
+                                <div ng-message="filesize">File size too large.</div>
+                                <div ng-message="totalsize">Total size too large.</div>
+                                <div ng-message="mimetype">Mimetype error.</div>
+                            </div>
+                            <span class="px-12 left red" ng-bind="errors.file.error"></span>
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </md-dialog-content>
+            <md-dialog-actions layout="row">
+                <md-button ng-click="cancel()">
+                    {{'Rep.CANCEL' | translate}}
+                </md-button>
+                <md-button ng-click="save()">
+                    {{'Rep.SAVE' | translate}}
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+</script>

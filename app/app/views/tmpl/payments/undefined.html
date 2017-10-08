@@ -1,0 +1,294 @@
+<div class="page page-orders" ng-init="GetUnpaidData()">
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{'Menu.UNDEFINED' | translate}} <span>//</span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{'Menu.VERYLINX' | translate}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{'Menu.PAYMENTS' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.tables.bootstrap">{{'Menu.UNDEFINED' | translate}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+    <!-- tile -->
+                <section class="tile" fullscreen="isFullscreen01">
+
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1 class="custom-font"><strong>Orders</strong> List</h1>
+                        <ul class="controls">
+
+                            <li>
+                                <div class="form-group">
+                                    <select  style="height: 43px;" ng-change="GetUnpaidData()" ng-model="filter.advertiser">
+                                        <option value='' >{{'Panel.ADVERTISERS' | translate}}</option>
+                                        <option value="{{v}}" ng-repeat="(v,k) in advertisers" ng-bind="k"></option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <select style="height: 43px;" ng-change="GetUnpaidData()"  ng-model="filter.company" >
+                                        <option value='' >{{'Panel.ALLCOMPANY' | translate}}</option>
+                                        <option value="{{v}}" ng-repeat="(v,k) in companies" ng-bind="k"></option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <select  style="height: 43px;" ng-change="GetUnpaidData()" ng-model="filter.publisher">
+                                        <option value='' >{{'Panel.PUBLISHERS' | translate}}</option>
+                                        <option value="{{v}}" ng-repeat="(v,k) in publishers" ng-bind="k"></option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <select ng-model="filter.groupby"   ng-change="GetUnpaidData()" style="height: 43px;">
+                                        <option value='' >{{'Panel.GROUPBY' | translate}}</option>
+                                        <option value='advertiser' >{{'Panel.GROUPBYADVERTISER' | translate}}</option>
+                                        <option value='publisher' >{{'Panel.GROUPBYPUBLISHER' | translate}}</option>
+                                        <option value='company' >{{'Panel.GROUPBYCOMPANY' | translate}}</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href class="dropdown-toggle" uib-dropdown-toggle>Tools <i class="fa fa-angle-down ml-5"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href>Export to XLS</a>
+                                    </li>
+                                    <li>
+                                        <a href>Export to CSV</a>
+                                    </li>
+                                    <li>
+                                        <a href>Export to XML</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li>
+                                        <a href>Print Invoices</a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href tile-control-toggle>
+                                            <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                            <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-refresh ng-click="ajaxFaker()">
+                                            <fa name="refresh"></fa> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                                            <fa name="expand"></fa> Fullscreen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-lightbox>
+                                            <fa name="magnet"></fa> Open in Lightbox
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+                        <div class="table-responsive-wide">
+                            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped table-hover table-custom" style="min-width: 1000px;">
+                                <thead>
+                                <tr>
+                                    <th style="width:80px;" ng-bind="'Panel.ADVERTISER' | translate">advertiser</th>
+                                    <th style="width:120px;" ng-bind="'Panel.COMPANY' | translate">კომპანია</th>
+                                    <th style="width:180px;" ng-bind="'Panel.TRAN_ID' | translate">ტრანზაქციის ID</th>
+                                    <th style="width:180px;" ng-bind="'Panel.IP' | translate">IP</th>
+                                    <th style="width:200px;" ng-bind="'Panel.DATE' | translate">თარიღი</th>
+                                    <th style="width:100px;" ng-bind="'Panel.REFERER' | translate">რეფერერი</th>
+                                    <th  style="width:100px;" ng-bind="'Panel.TYPE' | translate">ტიპი</th>
+                                    <th style="width:200px;" ng-bind="'Panel.STATUS' | translate"> სტატუსი</th>
+                                    <th  style="width:100px;" ng-bind="'Panel.PAY_STATUS' | translate">გადახდის სტატუსი</th>
+                                    <th style="width:150px;" ng-bind="'Panel.PUBLISHER' | translate">publisher</th>
+                                    <th style="width:150px;" ng-bind="'Panel.PUBLISHER_AMOUNT' | translate">publisher თანხა</th>
+                                    <th style="width:150px;" ng-bind="'Panel.COMPANY_AMOUNT' | translate">კომპანიის თანხა</th>
+                                    <th style="width:150px;" ng-bind="'Panel.SUM' | translate">სულ </th>
+                                    <th style="width:150px;" ng-bind="'Panel.ACTIONS' | translate">action </th>
+
+
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th style="width:80px;" ng-bind="'Panel.ADVERTISER' | translate">advertiser</th>
+                                    <th style="width:120px;" ng-bind="'Panel.COMPANY' | translate">კომპანია</th>
+                                    <th style="width:180px;" ng-bind="'Panel.TRAN_ID' | translate">ტრანზაქციის ID</th>
+                                    <th style="width:180px;" ng-bind="'Panel.IP' | translate">IP</th>
+                                    <th style="width:200px;" ng-bind="'Panel.DATE' | translate">თარიღი</th>
+                                    <th style="width:100px;" ng-bind="'Panel.REFERER' | translate">რეფერერი</th>
+                                    <th  style="width:100px;" ng-bind="'Panel.TYPE' | translate">ტიპი</th>
+                                    <th style="width:200px;" ng-bind="'Panel.STATUS' | translate"> სტატუსი</th>
+                                    <th  style="width:100px;" ng-bind="'Panel.PAY_STATUS' | translate">გადახდის სტატუსი</th>
+                                    <th style="width:150px;" ng-bind="'Panel.PUBLISHER' | translate">publisher</th>
+                                    <th style="width:150px;" ng-bind="'Panel.PUBLISHER_AMOUNT' | translate">publisher თანხა</th>
+                                    <th style="width:150px;" ng-bind="'Panel.COMPANY_AMOUNT' | translate">კომპანიის თანხა</th>
+                                    <th style="width:150px;" ng-bind="'Panel.SUM' | translate">სულ </th>
+                                    <th style="width:150px;" ng-bind="'Panel.ACTIONS' | translate">action </th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr ng-repeat="b in details">
+
+                                    <td>{{ b.advertiser }}</td>
+                                    <td>{{ b.company }}</td>
+                                    <td>{{ b.hash }}</td>
+                                    <td>{{ b.ip }}</td>
+                                    <td>{{ b.date }}</td>
+                                    <td>{{ b.referer }}</td>
+                                    <td>{{ b.type }}</td>
+                                    <td><span class="label" ng-class="{'bg-success' : b.status == 'accept','bg-primary' : b.status == 'pending'}">{{ b.status }}</span></td>
+                                    <td><span class="label" ng-class="{'bg-success' : b.pay_status == 'paid','bg-danger' : b.pay_status == 'unpaid'}">{{ b.pay_status }}</span></td>
+                                    <td>{{ b.publisher }}</td>
+                                    <td>{{ b.amount }}</td>
+                                    <td>{{ b.verylinx }}</td>
+                                    <td>{{ b.fullamount }}</td>
+                                    <td> <a  href="javascript:void(0)" ng-click="showDetails($event,b)" class="btn btn-xs btn-primary" ><i class="fa fa-check"></i> დამუშავება</a></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /tile body -->
+
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+
+
+
+
+    </div>
+    <!-- /page content -->
+
+
+
+
+</div>
+
+<script id="UndefinedDetail.tmpl.html" type="text/ng-template">
+    <md-dialog aria-label="Mango (Fruit)">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>დეტალების ნახვა</h2>
+                    <span flex></span>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div class="md-dialog-content">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" for="advertiser">advertiser:</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" ng-model="data.advertiser" id="advertiser" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" for="advertiser">კომპანია:</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" ng-model="data.company" id="advertiser" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" for="category">აირჩიეთ კატეგორია:</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="category" ng-model="category" ng-change="changecomission()">
+                                    <option value="">არჩეული არ არის</option>
+                                    <option value="{{c.id}}" ng-repeat="c in categories" ng-bind="c.name"></option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" for="publisher">publisher:</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="publisher"  ng-model="data.publisher" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" for="commission">საკომისიო:</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="commission"  ng-model="usercommission.user.percent" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" for="publishercash">პუბლიშერის თანხა:</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control"  id="publishercash"  ng-model="usercommission.user.cash" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" for="amount" >გაყიდული პროდუქტის თანხა:</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control"  id="amount" ng-model="data.cash" disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <span flex></span>
+
+                <md-button ng-click="save()">
+                    შენახვა
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+</script>

@@ -1,0 +1,306 @@
+<div class="page page-tables-bootstrap" ng-init="getMycategories()">
+
+
+
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{'Menu.CATEGORIES' | translate}} <span>// </span></h2>
+
+        <div class="page-bar">
+
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{'Menu.VERYLINX' | translate}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{'Menu.PANEL' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.tables.bootstrap">{{'Menu.CATEGORIES' | translate}}</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- /page header -->
+
+
+
+
+
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+
+
+                <!-- tile -->
+                <section class="tile" fullscreen="isFullscreen07">
+
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1 class="custom-font"><!--span ><strong>Advanced</strong> Table</span--> &nbsp;</h1>
+                        <ul class="controls">
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href tile-control-toggle>
+                                            <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                            <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-refresh ng-click="ajaxFaker()">
+                                            <fa name="refresh"></fa> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-fullscreen ng-click="isFullscreen07 = !isFullscreen07">
+                                            <fa name="expand"></fa> Fullscreen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-lightbox>
+                                            <fa name="magnet"></fa> Open in Lightbox
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile widget -->
+                    <div class="tile-widget">
+
+                        <div class="row">
+
+                            <div class="col-sm-5">
+
+                            </div>
+
+                            <div class="col-sm-3"></div>
+
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="input-sm form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default" type="button">Go!</button>
+                  </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /tile widget -->
+
+                    <!-- tile body -->
+                    <div class="tile-body p-0">
+
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                <tr>
+                                    <th style="width:20px;">
+                                        <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                            <input type="checkbox" ng-model="selectedAll" ng-change="selectAll()"><i></i>
+                                        </label>
+                                    </th>
+                                    <th ng-bind="'Panel.CATEGORIES' | translate">კატეგორია </th>
+                                    <th ng-bind="'Panel.SUBID' | translate">სუბ ID </th>
+                                    <th ng-bind="'Panel.CPA' | translate">cpa </th>
+                                    <th ng-bind="'Panel.TYPE' | translate">ტიპი </th>
+                                    <th ng-bind="'Panel.CPL' | translate">cpl </th>
+                                    <th ng-bind="'Panel.TYPE' | translate">ტიპი </th>
+                                    <th ng-bind="'Panel.COMPANY' | translate">კომპანია </th>
+                                    <th ng-bind="'Panel.DATE' | translate">თარიღი </th>
+                                    <th ng-bind="'Panel.USER' | translate">მომხმარებელი</th>
+                                    <th ng-bind="'Panel.MAIL' | translate">ელფოსტა</th>
+                                    <th style="width:200px;" ng-bind="'Panel.WEBSITE' | translate">ვებგვერდი</th>
+
+                                    <th ng-bind="'Panel.STATUS' | translate">>სტატუსი</th>
+                                    <th ng-bind="'Panel.VIEW' | translate">>ნახვა</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="user in users.slice(((bigCurrentPage-1)*itemsPerPage), ((bigCurrentPage)*itemsPerPage))">
+                                    <td><label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" ng-model="user.selected"><i></i></label></td>
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.mycatid}}</td>
+                                    <td>{{user.cpa}}</td>
+                                    <td>{{user.cpatype}}</td>
+                                    <td>{{user.cpl}}</td>
+                                    <td>{{user.cpltype}}</td>
+                                    <td>{{user.companyName}}</td>
+                                    <td>{{user.date}}</td>
+                                    <td>{{user.username}}</td>
+                                    <td><a href="mailto:{{user.mail}}" target="_top">{{user.mail}}</a></td>
+                                    <td><a href="{{user.companyUrl}}" target='_blank'>{{user.companyUrl}} </a></td>
+
+                                    <td style="color:{{user.color}}" >{{user.status}}</td>
+                                    <td><a href="" ng-click="category($event,user)" class="m-0 icon icon-success icon-ef-3 icon-ef-3b icon-color" style="width: 32px;height: 32px;"><i class="fa fa-edit" style="line-height: 33px;font-size: 17px;"></i></a></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                    <!-- /tile body -->
+
+                    <!-- tile footer -->
+                    <div class="tile-footer dvd dvd-top">
+                        <div class="row">
+
+                            <div class="col-sm-5 hidden-xs">
+
+                            </div>
+
+                            <div class="col-sm-3 text-center">
+                                <small class="text-muted">showing 20-30 of 50 items</small>
+                            </div>
+
+                            <div class="col-sm-4 text-right">
+                                <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /tile footer -->
+
+                </section>
+                <!-- /tile -->
+
+
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+
+
+
+
+
+
+    </div>
+    <!-- /page content -->
+</div>
+
+
+<script type="text/ng-template" id="category.tmpl.html">
+    <md-dialog style="width:80%; max-width:800px;">
+        <form ng-cloak>
+            <md-dialog-content class="p-30 code-content" >
+                <h3>{{'Rep.ADD_CATEGORY' | translate}} </h3>
+                <form class="form-horizontal" >
+                    <div class="form-group">
+                        <label for="sel1" ng-class="error.cid.color=='red'? 'red':''">{{'Rep.COMPANY' | translate}}</label>
+
+                        <md-select ng-model="selectedCompany" md-selected-text="getSelectedCompany()">
+                            <md-optgroup label="{{'Rep.COMPANY' | translate}}" >
+                                <md-option ng-value="c" ng-repeat="c in companies">{{c.companyName}}</md-option>
+                            </md-optgroup>
+                        </md-select>
+                        <span class="red" ng-bind="error.cid.error"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1" ng-class="error.catid.color=='red'? 'red':''">{{'Rep.CATEGORY' | translate}}</label>
+                        <md-select ng-model="selectedItem" md-selected-text="getSelectedText()">
+                            <md-optgroup label="{{c.name}}" ng-repeat="c in categories">
+                                <md-option ng-value="s" ng-repeat="s in c.sub">{{s.name}}</md-option>
+                            </md-optgroup>
+                        </md-select>
+                        <span class="red" ng-bind="error.catid.error"> </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1" ng-class="error.mycatid.color=='red'? 'red':''">{{'Rep.CATEGORY_IDENTIFIER' | translate}} (category id):</label>
+                        <input type="text" placeholder="" class="form-control" ng-model="mycatid">
+                        <span class="red" ng-bind="error.mycatid.error"> </span>
+                    </div>
+                    <div class="form-group" ng-if="selectedItem.pay=='cpl' || selectedItem.pay=='all'">
+                        <div class="col-md-12"> <label for="lead">{{'Rep.CPL_PRICE' | translate}}:  <span class="pull-right"><sup>*</sup> <span ng-bind="price.cpltype? 'Rep.FIXED_PRICE' | translate:'Rep.PERCENT_PRICE' | translate"></span></span></label></div>
+                        <div class="col-md-8 p-0">
+                            <input type="text" placeholder="ex. 2%" class="form-control" ng-model="price.cpl">
+                        </div>
+                        <div class="col-md-4">
+                            <md-checkbox ng-model="price.cpltype">
+                                {{'Rep.FIXED_PRICE' | translate}}
+                            </md-checkbox>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="selectedItem.pay=='cpa' || selectedItem.pay=='all'">
+                        <div class="col-md-12"><label for="sale">{{'Rep.CPA_PRICE' | translate}}:  <span class="pull-right"><sup>*</sup> <span ng-bind="price.cpatype? 'Rep.FIXED_PRICE' | translate:'Rep.PERCENT_PRICE' | translate"></span></span></label> </div>
+                        <div class="col-md-8 p-0">
+                            <input type="text"  placeholder="ex. 2%" class="form-control"  ng-model="price.cpa">
+                        </div>
+                        <div class="col-md-4 ">
+                            <md-checkbox ng-model="price.cpatype">
+                                {{'Rep.FIXED_PRICE' | translate}}
+                            </md-checkbox>
+                        </div>
+                    </div>
+                    <hr/>
+                    <h4>{{'Rep.USER_COMMISSION' | translate}}</h4>
+                    <div class="form-group" ng-if="selectedItem.pay=='cpl' || selectedItem.pay=='all'">
+                        <div class="col-md-12"> <label for="lead">{{'Rep.CPL_PRICE' | translate}}:  <span class="pull-right"><sup>*</sup> <span ng-bind="price.cpltype? 'Rep.FIXED_PRICE' | translate:'Rep.PERCENT_PRICE' | translate"></span></span></label></div>
+                        <div class="col-md-12 p-0">
+                            <input type="text" placeholder="ex. 2%" class="form-control" ng-model="price.user_cpl">
+                        </div>
+
+                    </div>
+                    <div class="form-group" ng-if="selectedItem.pay=='cpa' || selectedItem.pay=='all'">
+                        <div class="col-md-12"> <label for="lead">{{'Rep.CPA_PRICE' | translate}}:  <span class="pull-right"><sup>*</sup> <span ng-bind="price.cpatype?''Rep.FIXED_PRICE' | translate:'Rep.PERCENT_PRICE' | translate"></span></span></label></div>
+                        <div class="col-md-12 p-0">
+                            <input type="text" placeholder="ex. 2%" class="form-control" ng-model="price.user_cpa">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label>{{'Rep.STATUS' | translate}}  </label>
+                        <select class="form-control"  ng-model="status" ng-class="(error.status.color == 'red')? 'b-red':'' " >
+                            <option value="accept" >{{'Rep.ACCEPT' | translate}}</option>
+                            <option value="pasive" >{{'Rep.PASIVE' | translate}}</option>
+                            <option value="pending" >{{'Rep.PENDING' | translate}}</option>
+
+                        </select>
+                        <span class="px-12 left red" ng-bind="error.status.error"></span>
+                    </div>
+                    <div class="form-group">
+                        <md-checkbox ng-model="global_change" >
+                            {{'Rep.GLOBAL_CHANGES' | translate}}
+                        </md-checkbox>
+                    </div>
+                    <div class="form-group">
+                        <span class="red" ng-bind="error.general.error"> </span>
+                        <center>
+                            <md-button class="md-raised md-default" ng-click="cancel()">{{'Rep.CANCEL' | translate}}</md-button>
+                            <md-button class="md-raised md-primary" ng-click="accept()">{{'Rep.ACCEPT' | translate}}</md-button>
+                        </center>
+                    </div>
+                </form>
+            </md-dialog-content>
+
+        </form>
+    </md-dialog>
+    <style>
+        .form-control{
+            font-family: inherit;
+        }
+    </style>
+</script>

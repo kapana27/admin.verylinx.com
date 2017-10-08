@@ -1,0 +1,150 @@
+<div class="page page-timeline" ng-init="GetCompanies()">
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{page.title}} <span>// {{page.subtitle}}</span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">Extra Pages</a>
+                </li>
+                <li>
+                    <a ui-sref="app.">{{page.title}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+
+    <!-- page content -->
+    <div class="pagecontent">
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+
+            <div class="col-md-2 bg-white mt-30">
+                <div ng-repeat="c in categories">
+                    <h4 ng-show="c.show=='no'" class="uppercase strong">{{c.name}}</h4>
+                    <hr>
+                    <form>
+                        <div class="form-group mb-0">
+                            <div ng-repeat="sub in c.sub" >
+                                <md-checkbox ng-model="form.cat[sub.id]">
+                                    <span class="px-12 strong" >{{sub.name}}</span>
+                                </md-checkbox>
+                            </div>
+
+                        </div>
+
+                    </form>
+                    <div ng-show="c.show=='yes'" >
+                        <md-checkbox ng-model="form.cat[c.id]">
+                            <span class="px-12 strong" >{{c.name}}</span>
+                        </md-checkbox>
+                    </div>
+                </div>
+
+
+                <table class="mt-30 mb-30">
+                    <tr>
+                        <td>
+                            <button type="button" class="btn btn-verylinx uppercase strong radius25 home-btn px-20" ng-click="refreshData()">FILTER</button>
+                        </td>
+                        <td>
+                            &nbsp; &nbsp;<span class="uppercase gray-info strong" ng-click="form.cat=[]">Clear </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+                <div class="col-md-1" style="width:50px;"> </div>
+
+                <div class="col-md-9 mt-30 bg-white">
+                    <div ng-show="data.length==0" class="mt-30 text-strong"> ახალი პროგრამები არ მოიძებნა </div>
+                    <div ng-repeat="com in data.slice(((bigCurrentPage-1)*itemsPerPage), ((bigCurrentPage)*itemsPerPage))">
+                        <div class="row" >
+                            <div class="col-xs-5">
+                                <div class="home-box p15 radius5">
+                                    <div class="row mb-0">
+                                        <div class="col-xs-5 pr-0 xs-center" >
+                                            <img src="/b/getImage?logo={{com.logo}}"  class="mt-18" style="width:100%" />
+
+                                        </div>
+                                        <div class="col-xs-7  pl-10" >
+                                            <h3 class="strong mb-0 xs-center">{{com.companyName}}</h3>
+                                            <!--p class="px-15 gray-info lh-1 strong mb-5 xs-center">Horns for Dogs (food supplement for dogs).</p-->
+                                            <!--p class="px-15  lh-1 strong xs-center">Publish date. {{com.publish}}</p-->
+                                        </div>
+
+                                    </div>
+                                    <hr class="mt-0">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <h3 class="gray-info px-12 uppercase strong mb-5" ng-bind-html="'Program.RATING' | translate">Rating </h3>
+                                            <p class="px-23 mb-5">5.4</p>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h3 class="gray-info px-12 uppercase strong mb-5" ng-bind-html="'Program.ECPC' | translate">eCPC </h3>
+                                            <p class="px-23 mb-5">0.3%</p>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h3 class="gray-info px-12 uppercase strong mb-5" ng-bind-html="'Program.CR' | translate">CR </h3>
+                                            <p class="px-23 mb-5">0.99%</p>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h3 class="gray-info px-12 uppercase strong mb-5" ng-bind-html="'Program.AP' | translate">Approval </h3>
+                                            <p class="px-23 mb-5">98%</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-xs-5 program-left-border">
+
+                                <table  class="program-features">
+                                    <tr>
+                                        <td ng-bind-html="'Program.LAUNCH_DATE' | translate"> Launch Date: </td>
+                                        <td>13.03.2015 </td>
+                                    </tr>
+                                    <tr>
+                                        <td ng-bind-html="'Program.PRODUCT_FEED' | translate">Product feed: </td>
+                                        <td> Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td ng-bind-html="'Program.RETARGETING' | translate">Retargeting: </td>
+                                        <td>No </td>
+                                    </tr>
+                                    <tr>
+                                        <td ng-bind-html="'Program.COOKIE_LIFETIME' | translate">Cookie lifetime: </td>
+                                        <td>30 days </td>
+                                    </tr>
+                                    <tr>
+                                        <td ng-bind-html="'Program.RATES' | translate">Rates: </td>
+                                        <td>New clients </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-xs-2 lh16">
+                                <center><i  ng-click="go(com.id)" class="fa fa-angle-right px-50 gray-info lh-4" aria-hidden="true" ></i></center>
+                            </div>
+                        </div>
+                        <hr/>
+                    </div>
+                    <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+
+                </div>
+
+
+
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /page content -->
+</div>

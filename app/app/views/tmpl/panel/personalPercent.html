@@ -1,0 +1,472 @@
+<div class="page page-timeline" xmlns="http://www.w3.org/1999/html" ng-init="GetCompamyInfo()">
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{page.title}} <span>// {{page.subtitle}}</span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">Extra Pages</a>
+                </li>
+                <li>
+                    <a ui-sref="app.">{{page.title}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+
+    <!-- page content -->
+    <div class="pagecontent">
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+
+
+
+            <div class="col-md-12 mt-30 bg-white">
+                <md-content style="min-height: 800px;">
+                    <md-tabs md-dynamic-height md-border-bottom>
+                        <md-tab label="პროგრამის მიმოხილვა" >
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <div class="home-box p15 radius5">
+                                        <div class="row mb-0">
+                                            <div class="col-xs-3 pr-0 xs-center" >
+                                                <img src="b/getImage?logo={{company.logo}}"  class="mt-18" style="width:100%;max-width:75px" />
+
+                                            </div>
+                                            <div class="col-xs-9 pl-0">
+                                                <h3 class="strong mb-0 xs-center">{{company.companyName}}</h3>
+
+                                                <p class="px-15  lh-1 strong xs-center">Publish date. {{company.publish}}</p>
+                                            </div>
+
+                                        </div>
+                                        <hr class="mt-0 mb-0">
+                                        <div class="row">
+                                            <div class="col-xs-3 center">
+                                                <h3 class="gray-info px-12 uppercase strong mb-5 mt-5">Rating </h3>
+                                                <p class="px-23 mb-5 mt-0">5.4</p>
+                                            </div>
+                                            <div class="col-xs-3 center">
+                                                <h3 class="gray-info px-12 uppercase strong mb-5 mt-5">eCPC </h3>
+                                                <p class="px-23 mb-5 mt-0">0.3%</p>
+                                            </div>
+                                            <div class="col-xs-3 center">
+                                                <h3 class="gray-info px-12 uppercase strong mb-5 mt-5">CR </h3>
+                                                <p class="px-23 mb-5 mt-0">0.99%</p>
+                                            </div>
+                                            <div class="col-xs-3 center">
+                                                <h3 class="gray-info px-12 uppercase strong mb-5 mt-5">Approval </h3>
+                                                <p class="px-23 mb-5 mt-0">98%</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-5 program-left-border">
+
+                                    <table  class="program-features">
+                                        <tr>
+                                            <td> Launch Date: </td>
+                                            <td>13.03.2015 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Product feed: </td>
+                                            <td> Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retargeting: </td>
+                                            <td>No </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cookie lifetime: </td>
+                                            <td>30 days </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rates: </td>
+                                            <td>New clients </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-xs-2 lh16">
+
+                                </div>
+                            </div>
+                            <hr class="m-0 p-0">
+                            <div class="row p-15">
+                                <div style="max-width: 800px;">
+                                    Launched in 2010, AliExpress.com is an online retail service made up of mostly small Chinese businesses offering products to international online buyers. It is owned by Alibaba.[1] It is the most visited e-commerce website in Russia and was the 10th most popular website in Brazil
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th style="width:20px;">
+                                                <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                                    <input type="checkbox" ng-model="selectedAll" ng-change="selectAll()"><i></i>
+                                                </label>
+                                            </th>
+                                            <th>კატეგორია </th>
+                                            <th>cpa </th>
+                                            <th>ტიპი </th>
+                                            <th>cpl </th>
+                                            <th>ტიპი </th>
+                                            <th>თარიღი </th>
+                                            <th >სტატუსი</th>
+                                            <th >ნახვა</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="cat in categories">
+                                            <td><label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" ng-model="cat.selected"><i></i></label></td>
+                                            <td>{{cat.name}}</td>
+                                            <td>{{cat.cpa}}</td>
+                                            <td>{{cat.cpatype}}</td>
+                                            <td>{{cat.cpl}}</td>
+                                            <td>{{cat.cpltype}}</td>
+                                            <td>{{cat.date}}</td>
+                                            <td style="color:{{user.color}}" >{{cat.status}}</td>
+                                            <!--td><a href="" ng-click="category($event,cat)" class="m-0 icon icon-success icon-ef-3 icon-ef-3b icon-color" style="width: 32px;height: 32px;"><i class="fa fa-edit" style="line-height: 33px;font-size: 17px;"></i></a></td-->
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+
+                            </div>
+                       </md-tab>
+                        <md-tab label="პერსონალური საკომისიო" ng-click="GetPersonalComission()">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <div class="home-box p15 radius5">
+                                        <div class="row mb-0">
+                                            <div class="col-xs-3 pr-0 xs-center" >
+                                                <img src="b/getImage?logo={{company.logo}}"  class="mt-18" style="width:100%;max-width:75px" />
+
+                                            </div>
+                                            <div class="col-xs-9 pl-0">
+                                                <h3 class="strong mb-0 xs-center">{{company.companyName}}</h3>
+
+                                                <p class="px-15  lh-1 strong xs-center">Publish date. {{company.publish}}</p>
+                                            </div>
+
+                                        </div>
+                                        <hr class="mt-0 mb-0">
+                                        <div class="row">
+                                            <div class="col-xs-3 center">
+                                                <h3 class="gray-info px-12 uppercase strong mb-5 mt-5">Rating </h3>
+                                                <p class="px-23 mb-5 mt-0">5.4</p>
+                                            </div>
+                                            <div class="col-xs-3 center">
+                                                <h3 class="gray-info px-12 uppercase strong mb-5 mt-5">eCPC </h3>
+                                                <p class="px-23 mb-5 mt-0">0.3%</p>
+                                            </div>
+                                            <div class="col-xs-3 center">
+                                                <h3 class="gray-info px-12 uppercase strong mb-5 mt-5">CR </h3>
+                                                <p class="px-23 mb-5 mt-0">0.99%</p>
+                                            </div>
+                                            <div class="col-xs-3 center">
+                                                <h3 class="gray-info px-12 uppercase strong mb-5 mt-5">Approval </h3>
+                                                <p class="px-23 mb-5 mt-0">98%</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-5 program-left-border">
+
+                                    <table  class="program-features">
+                                        <tr>
+                                            <td> Launch Date: </td>
+                                            <td>13.03.2015 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Product feed: </td>
+                                            <td> Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retargeting: </td>
+                                            <td>No </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cookie lifetime: </td>
+                                            <td>30 days </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rates: </td>
+                                            <td>New clients </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-xs-2 lh16">
+
+                                </div>
+                            </div>
+                            <hr class="m-0 p-0">
+                            <div class="row p-15">
+                                <div style="max-width: 800px;">
+                                    Launched in 2010, AliExpress.com is an online retail service made up of mostly small Chinese businesses offering products to international online buyers. It is owned by Alibaba.[1] It is the most visited e-commerce website in Russia and was the 10th most popular website in Brazil
+                                </div>
+                            </div>
+                            <div class="row p-10">
+
+                                <div class="col-md-3 pt-13">
+                                    <div class="form-group">
+
+                                        <select class="form-control"  ng-model="filter.category" id="sel1">
+                                            <option value="">კატეგორია</option>
+                                            <option value="{{c.catid}}" ng-repeat="c in categories" ng-bind="c.name"></option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3 pt-13">
+                                    <div class="form-group">
+                                        <select class="form-control" ng-model="filter.user" id="sel1">
+                                            <option value="">მომხმარებელი</option>
+                                            <option value="{{c.uid}}" ng-repeat="c in users" ng-bind="c.name"></option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 pt-13">
+                                    <div class="form-group">
+                                        <select class="form-control" ng-model="filter.status" id="sel1">
+                                            <option value="">სტატუსი</option>
+                                            <option value="active">active</option>
+                                            <option value="pasive">pasive</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 pt-13">
+                                    <div class="form-group">
+                                        <a href="" ng-click="refreshData()" class="icon icon-info icon-ef-6 icon-color m-0" style="width: 32px;height: 32px;"><i class="px-22 fa fa-refresh" style="line-height:32px"></i></a>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-1 pt-13">
+                                    <button class="btn btn-info btn-rounded btn-icon-only btn-ef btn-ef-7 btn-ef-7g mb-10" ng-click="AddCommission($event)" activate-button=""><i class="fa fa-plus"></i> Add <i class="after fa fa-plus"></i></button>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th style="width:20px;">
+                                                <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                                    <input type="checkbox" ng-model="selectedAll" ng-change="selectAll()"><i></i>
+                                                </label>
+                                            </th>
+                                            <th>კატეგორია </th>
+                                            <th>მომხმარებელი </th>
+                                            <th>ელფოსტა </th>
+                                            <th>საკ. ტიპი </th>
+                                            <th>cpa </th>
+                                            <th>ტიპი </th>
+                                            <th>cpl </th>
+                                            <th>ტიპი </th>
+                                            <th>თარიღი </th>
+                                            <th >სტატუსი</th>
+                                            <th >ნახვა</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="com in commission.slice(((bigCurrentPage-1)*itemsPerPage), ((bigCurrentPage)*itemsPerPage))">
+                                            <td><label class="checkbox checkbox-custom checkbox-custom-sm m-0"><input type="checkbox" ><i></i></label></td>
+                                            <td>{{com.name}}</td>
+                                            <td>{{com.user}}</td>
+                                            <td>{{com.mail}}</td>
+                                            <td>{{(com.multiple=='yes'?'ცვალებადი':'ფიქსირებული')}}</td>
+                                            <td>{{com.cpa}}</td>
+                                            <td>{{com.cpatype}}</td>
+                                            <td>{{com.cpl}}</td>
+                                            <td>{{com.cpltype}}</td>
+                                            <td>{{com.date}}</td>
+                                            <td style="color:{{com.color}}" >{{com.status}}</td>
+                                            <td><a href="" ng-click="editComission($event,com)" class="m-0 icon icon-success icon-ef-3 icon-ef-3b icon-color" style="width: 32px;height: 32px;"><i class="fa fa-edit" style="line-height: 33px;font-size: 17px;"></i></a></td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+
+                            </div>
+                            <div class="tile-footer dvd dvd-top">
+                                <div class="row">
+
+                                    <div class="col-sm-5 hidden-xs">
+
+                                    </div>
+
+                                    <div class="col-sm-3 text-center">
+                                        <small class="text-muted">showing 20-30 of 50 items</small>
+                                    </div>
+
+                                    <div class="col-sm-4 text-right">
+                                        <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></uib-pagination>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </md-tab>
+                    </md-tabs>
+                </md-content>
+            </div>
+
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+
+    </div>
+    <!-- /page content -->
+</div>
+
+<script type="text/ng-template" id="AddCommission.html">
+    <md-dialog style="width:80%; max-width:800px;">
+        <form ng-cloak>
+
+            <md-dialog-content class="p-30 code-content" >
+                <div class="form-group">
+                    <label for="sel1">კატეგორია</label>
+                    <select class="form-control" id="sel1" ng-change="changeCategory()" ng-model="comission.category">
+                        <option value="">კატეგორია</option>
+                        <option value="{{c.catid}}" ng-repeat="c in categories" ng-bind="c.name"></option>
+
+                    </select>
+                    <span class="red" ng-bind="error.category.error"> </span>
+                </div>
+                <div class="form-group">
+                    <label for="sel1">მომხმარებელი</label>
+                    <select class="form-control" id="sel1" ng-model="comission.userid">
+                        <option value="">მომხმარებელი</option>
+                        <option value="{{u.uid}}" ng-repeat='u in users' ng-bind="u.name"></option>
+
+                    </select>
+                    <span class="red" ng-bind="error.userid.error"> </span>
+                </div>
+                <div class="form-group" >
+                    <label for="sel1">სტატუსი</label>
+                    <select class="form-control" ng-model="comission.status" >
+                        <option value="active">აქტიური</option>
+                        <option value="pasive">პასიური</option>
+                    </select>
+                </div>
+                <div class="form-group" >
+                    <label for="sel1">საკომისიოს დარიცხვა</label>
+                    <select class="form-control" ng-model="comission.multiple" ng-change="commisType()">
+                        <option value="">დარიცხვის ტიპი</option>
+                        <option value="no">ფიქსირებული</option>
+                        <option value="yes">ცვალებადი</option>
+                    </select>
+                    <span class="red" ng-bind="error.multiple.error"> </span>
+                </div>
+
+                <div ng-if="comission.multiple=='no'">
+                    <div class="form-group">
+                        <div class="col-md-12 p-0"><label  for="cpa">cpa:</label></div>
+                        <div class="col-md-8 p-0">
+                             <input type="text" ng-model="comission.cpa" class="form-control" id="cpa">
+                            <span class="red" ng-bind="error.cpa.error"> </span>
+                        </div>
+                        <div class="col-md-4 ">
+                            <md-checkbox ng-model="comission.cpatype" aria-label="Checkbox 1">
+                                ფიქსირებული თანხა
+                            </md-checkbox>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 p-0"> <label  for="cpa">cpl:</label></div>
+                        <div class="col-md-8 p-0">
+                            <input type="text" ng-model="comission.cpl" class="form-control" id="cpl">
+                            <span class="red" ng-bind="error.cpl.error"> </span>
+                        </div>
+                        <div class="col-md-4 ">
+                            <md-checkbox ng-model="comission.cpltype" aria-label="Checkbox 1">
+                                ფიქსირებული თანხა
+                            </md-checkbox>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="comission.multiple=='yes'"  >
+                    <div class="form-group">
+                        <button class="btn btn-info btn-rounded btn-icon-only btn-ef btn-ef-7 btn-ef-7g mb-10"  ng-click="add()" activate-button=""><i class="fa fa-plus"></i> დამატება <i class="after fa fa-plus"></i></button>
+                    </div>
+                    <div class="border-gray">
+                        <div ng-repeat="i in comissions">
+                            <div class="col-md-2 p-0">
+                                <input type="text" class="form-control" ng-model="multipercent[i].min" placeholder="min">
+                            </div>
+                            <div class="col-md-2 p-0">
+                                <input type="text" class="form-control" ng-model="multipercent[i].max" placeholder="max">
+                            </div>
+                            <div class="col-md-2 p-0">
+                                <select class="form-control" id="sel1" ng-change="multicommission(i)" ng-model="multipercent[i].type">
+                                    <option value="cpl">cpl</option>
+                                    <option value="cpa">cpa</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-2 p-0">
+                                <select class="form-control" id="sel1"  ng-model="multipercent[i].percent">
+                                    <option value="fixed">ფიქსირებული</option>
+                                    <option value="percent">პროცენტი</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-3 p-0">
+                                <input type="text" class="form-control" placeholder="price" ng-model="multipercent[i].price">
+                            </div>
+                            <div class="col-md-1 p-0">
+                                <button ng-if="i==comissions.length-1" class="btn btn-info btn-rounded btn-icon-only btn-ef btn-ef-7 btn-ef-7g pull-right"  style="padding: 16px 20px;" ng-click="delete(i)" activate-button=""><i class="fa fa-close" style="line-height: 31px;"></i> დამატება <i class="after fa fa-close" style="line-height: 31px;"></i></button>
+                            </div>
+                            <span class="red" ng-bind="error.multipleError[{{i}}].error"> </span>
+                        </div>
+
+                    </div>
+                    <span class="red" ng-bind="error.multipleError.error"> </span>
+                </div>
+
+
+            </md-dialog-content>
+            <md-dialog-actions layout="row">
+                <md-button ng-click="cancel()">
+                    გაუქმება
+                </md-button>
+                <md-button ng-click="save()">
+                    შენახვა
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+    <style>
+        .form-control{
+            font-family: inherit;
+        }
+    </style>
+</script>
+

@@ -1,0 +1,225 @@
+<div class="page page-tables-bootstrap" ng-init="getMycategories()">
+
+
+
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>{{page.title}} <span>// {{page.subtitle}}</span></h2>
+
+        <div class="page-bar">
+
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">Tables</a>
+                </li>
+                <li>
+                    <a ui-sref="app.tables.bootstrap">{{page.title}}</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- /page header -->
+
+
+
+
+
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+
+
+                <!-- tile -->
+                <section class="tile" fullscreen="isFullscreen07">
+
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1 class="custom-font"><strong>Advanced</strong> Table</h1>
+                        <ul class="controls">
+                            <li> <md-button class="md-raised" ng-click="AddNewCategory($event,categories,'new')">დამატება</md-button></li>
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href tile-control-toggle>
+                                            <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                            <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-refresh ng-click="ajaxFaker()">
+                                            <fa name="refresh"></fa> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-fullscreen ng-click="isFullscreen07 = !isFullscreen07">
+                                            <fa name="expand"></fa> Fullscreen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-lightbox>
+                                            <fa name="magnet"></fa> Open in Lightbox
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                            <li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile widget -->
+                    <div class="tile-widget">
+
+                        <div class="row">
+
+                            <div class="col-sm-5">
+
+                            </div>
+
+                            <div class="col-sm-3"></div>
+
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="input-sm form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default" type="button">Go!</button>
+                  </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /tile widget -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+
+                        <div class="list-group" >
+                            <div ng-repeat="c in  categories" >
+                                <a ng-mouseover="show=c.id" style="color:{{c.status=='active'? 'green': 'red'}}" ng-mouseleave="show=''"   href="javascript:void(0)" class="list-group-item" ><strong>{{c.name}}</strong> <span class="badge" ng-show="show==c.id" ng-click="AddNewCategory($event,categories,'edit',c)">edit</span></a>
+                                <a href="javascript:void(0)"  style="color:{{s.status=='active'? 'green': 'red'}}" class="list-group-item ml-10" ng-repeat="s in c.subCat"   ng-mouseover="show=s.id" ng-mouseleave="show=''" >---{{s.name}} <span class="badge"  ng-show="show==s.id" ng-click="AddNewCategory($event,categories,'edit',s)">edit</span></a>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+                <!-- /tile -->
+
+
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+
+
+
+
+
+
+    </div>
+    <!-- /page content -->
+</div>
+
+<script id="addcategory.tpl.html" type="text/ng-template">
+    <md-dialog aria-label="კატეგორიის დამატება" style="width:80%; max-width:600px;">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>კატეგორიის დამატება</h2>
+                    <span flex></span>
+
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div class="md-dialog-content">
+                    <form class="form-horizontal" >
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" for="name">დასახელება:</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="name" placeholder="დასახელება" ng-model="form.name" >
+                            </div>
+                            <span class="red" ng-bind="error.name.error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="type" class="col-sm-12">ტიპი:</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="type"  ng-model="form.type" >
+                                    <option value="main">მთავარი</option>
+                                    <option value="sub">ქვეკატეგორია</option>
+                               </select>
+                            </div>
+                            <span class="red" ng-bind="error.type.error"></span>
+                        </div>
+                        <div class="form-group" ng-show="form.type=='sub'">
+                            <label for="sub" class="col-sm-12">ტიპი:</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="sub" ng-model="form.subid" >
+                                    <option value="{{c.id}}" ng-repeat="c in cat" ng-bind="c.name"></option>
+
+                                </select>
+
+                            </div>
+                            <span class="red" ng-bind="error.subid.error"></span>
+                        </div>
+                        <div class="form-group" >
+                            <label for="pay" class="col-sm-12">გადახდის ტიპი:</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="pay" ng-model="form.pay" >
+                                    <option value="cpa">cpa</option>
+                                    <option value="cpl">cpl</option>
+                                    <option value="all">all</option>
+                                </select>
+                            </div>
+                            <span class="red" ng-bind="error.pay.error"></span>
+                        </div>
+                        <div class="form-group" >
+                            <label for="status" class="col-sm-12">სტატუსი:</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="status" ng-model="form.status" >
+                                    <option value="active">აქტიური</option>
+                                    <option value="pasive">პასიური</option>
+                                </select>
+                            </div>
+                            <span class="red" ng-bind="error.status.error"></span>
+                        </div>
+
+                    </form>
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+
+                <span flex></span>
+                <md-button ng-click="cancel()">
+                    გაუქმება
+                </md-button>
+                <md-button ng-click="save()">
+                    შენახვა
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+</script>

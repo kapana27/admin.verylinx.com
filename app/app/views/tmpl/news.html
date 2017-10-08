@@ -1,0 +1,109 @@
+<div class="page page-timeline" ng-init="GetNews()">
+
+    <div class="pageheader">
+
+        <h2>{{'Menu.NEWS' | translate}} <span>//</span></h2>
+
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{'Menu.VERYLINX' | translate}}</a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{'Menu.PANEL' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.tables.bootstrap">{{'Menu.NEWS' | translate}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+
+    <!-- page content -->
+    <div class="pagecontent">
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+
+                <!-- tile -->
+                <section class="tile tile-simple no-bg">
+
+                    <!-- tile body -->
+                    <div class="tile-body streamline timeline p-0">
+
+                        <ul>
+                            <div ng-repeat="(k,v) in news">
+                                <li class="heading"><a href="javascript:;" class="btn btn-greensea b-0">{{k}}</a></li>
+
+                                <li class="timeline-post" ng-repeat="val in v">
+                                    <aside>
+                                        <div class="thumb wh30 bg-lightred">
+                                            <i class="fa fa-map-marker"></i>
+                                        </div>
+                                    </aside>
+                                    <div class="post-container">
+                                        <div class="panel panel-default b-0" style="height:166px;">
+
+                                            <span class="text-muted time"><i class="fa fa-clock-o"></i> {{val.hour}}</span>
+                                              <div class="row">
+
+                                                  <div class="col-md-7 left">
+                                                      <h3 class="custom-font text-danger">{{val.title}}</h3>
+                                                      <p>  {{val.body}}</p>
+                                                  </div>
+                                                  <div class="col-md-5 center" ng-if="val.type=='baner'">
+                                                      <img src="/b/getImage?logo={{val.logo}}" alt="{{val.title}}" width="170">
+                                                  </div>
+                                              </div>
+                                            <div class="row">
+                                               <button type="button" class="btn btn-default pull-right" ng-click="showAdvanced($event,val)">{{ 'Panel.READ_MORE' | translate }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /page content -->
+</div>
+<script type="text/ng-template" id="readnews.tmpl.html">
+    <md-dialog aria-label="Mango (Fruit)">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+
+                    <h2>{{item.title}}</h2>
+                    <span flex></span>
+
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div class="md-dialog-content">
+                    {{item.body}}
+                    <img src="/site/view?src={{item.img}}" alt="{{item.title}}" style="max-width:200px;">
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+
+                <md-button ng-click="ok()">
+                    close
+                </md-button>
+            </md-dialog-actions>
+        </form>
+        <style>
+               md-dialog{
+                   max-width:50% !important;
+               }
+        </style>
+    </md-dialog>
+</script>
