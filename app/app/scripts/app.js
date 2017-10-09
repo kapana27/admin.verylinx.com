@@ -164,7 +164,10 @@ var app = angular
 .config(['uiSelectConfig', function (uiSelectConfig) {
 	uiSelectConfig.theme = 'bootstrap';
 }])
-	.config(['$qProvider', function ($qProvider) {
+.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}])
+.config(['$qProvider', function ($qProvider) {
     $qProvider.errorOnUnhandledRejections(false);
 }])
 //angular-language
